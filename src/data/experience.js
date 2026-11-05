@@ -6,29 +6,31 @@ export const experience = [
     note: "Ritchie Bros. acquired VeriTread in March 2026.",
     positions: [
       {
-        role: "Machine Learning Engineer",
+        role: "AI/ML Engineer 2",
         date: "Oct 2025 – Present",
         bullets: [
-         "Led development of an AI bidding agent supporting concurrent users and session memory with AWS Bedrock AgentCore, Strands SDK, Claude Sonnet, and MCP tools used by admins, reducing manual bid processing time by 85%",
-          "Owned end-to-end machine learning pipelines with PyTorch and scikit-learn (regressors) to generate price estimations for transporting heavy hauls, increasing quarterly revenue by 20%",
-          "Engineered 100+ time-series features and cached recent quotes for a LightGBM confidence model to score price prediction accuracy, enabling stakeholders to set risk thresholds and guardrails on automated quotes",
-          "Added an LLM-based plausibility guardrail (Claude) to route flagged prices with the reasoning so that humans can accept or override before a price ships",
-          "Developed a Thompson sampling contextual bandit for the pricing model from an 8-week, 5-arm randomized markup experiment, lifting margin per quote 12% vs. a permanent fixed-markup holdout",
-          "Ran an online A/B test to measure the incremental impact of a new pricing model, establishing a statistically significant 37% lift in acceptance with no revenue degradation, where the incrementality read-out drove the go/no-go launch decision",
-          "Built an evaluation harness for the agent using 50 time-split bidding scenarios to regression-test 15+ prompt versions for tool selection, failure handling, and multi-turn behavior",
-          "Built a recommendation engine that suggested top 10 carriers for a load based on prior activity, achieving 0.87 Recall@10 and a 64% lift over a popularity baseline using matrix-factorization embeddings and weighted ranking",
-        ],
+                    "Led the development of a production agentic AI bidding chatbot on AWS Bedrock AgentCore with Strands Agents SDK, Claude Sonnet, and MCP tool calling, planning, and orchestration to cut manual bid processing by 65%",
+                    "Built multi-step agentic workflows with grounding in a machine-learning pricing model to handle chat, PDF, or CSV requests and answer follow-ups with concurrent sessions, memory, and state management in Python",
+                    "Developed an agent evaluation framework to select the best model and test tool selection and hallucinations across 7 models, 15+ prompts, and 20 past user scenarios",
+                    "Owned end-to-end machine learning pipelines to price freight across the US using LightGBM, PyTorch, and scikit-learn to increase quarterly revenue by 20% in Python",
+                    "Engineered lane-level pickup and drop-off features and 30-day, 90-day, and 1-year lookback tables to capture recent market trends and lane-specific pricing, and iterated on feedback to improve the models",
+                    "Expanded pricing to Canada through transfer learning from the US model and a ratio prediction model with limited data",
+                    "Engineered 100+ time-series features for a LightGBM confidence model for pricing models, enabling business stakeholders to set risk thresholds and guardrails on automated quotes",
+                    "Integrated an LLM application to convert natural language to SQL with a TypeScript UI by prompt-engineering Gemini Flash on GCP to write SQL queries for messy enterprise data from Snowflake with 93% accuracy across 50 test cases"
+                  ],
       },
       {
         role: "Software Engineer, Machine Learning",
         date: "Jul 2024 – Sep 2025",
         bullets: [
-          "Developed company-specific predictive models for client freight movement using gradient boosting methods in scikit-learn.",
-          "Built and tested .NET 6 and C# REST APIs for internal pricing services, enabling reliable SQL-based data access.",
-          "Used CircleCI to deploy code across dev, QA, and production environments.",
-          "Worked across backend, data, and ML workflows to support production pricing systems.",
-          "Conducted MLOps in a prod environment by automating the pricing model retraining with AWS EventBridge and Lambda, maintained observability across CloudWatch and Datadog through metrics, logs, and alerts, used MLflow for experiment tracking across 20+ model versions, and streamlined the deployment cycle by containerizing with Docker",
-        ],
+                    "Implemented .NET 8 and C# API backend services for internal tools across multiple microservices with Docker, CircleCI (CI/CD), and JWT and Vault-based enterprise authentication",
+
+                    "Deployed the pricing models on Amazon SageMaker AI behind a REST API on EKS (Kubernetes) to serve predictions at p95 latency under 70 ms",
+                    "Automated monthly model retraining and cloud deployment on AWS with EventBridge pipelines that version model artifacts and update the SageMaker endpoint under CloudWatch and Datadog monitoring",
+                    "Engineered 100+ time-series features for a LightGBM confidence model for pricing models, enabling business stakeholders to set risk thresholds and guardrails on automated quotes",
+                    "Conducted a live A/B experiment of the ML pricing model against legacy rule-based pricing, showing a 37% lift in quote acceptance rate to facilitate a data-driven launch decision",
+                    "Performed deep-dive analysis and built HTML dashboards with Claude Code to communicate findings to a broad audience of business stakeholders and the Sales team, and mentored a new Data Scientist through onboarding"
+                  ],
       },
     ],
   },
@@ -40,10 +42,10 @@ export const experience = [
       {
         role: "Data Scientist",
         bullets: [
-          "Designed a GPT-4 Turbo RAG pipeline with LlamaIndex and MySQL to convert natural language into executable SQL, streamlining query creation and accelerating analysis turnaround.",
-          "Conducted structured QA with varied question phrasings, achieving consistent SQL accuracy across diverse query formats.",
-          "Automated preprocessing of 500+ transcript files with Python text-cleaning scripts, cutting manual formatting time by 80% and enabling faster ingestion into NLP pipelines.",
-        ],
+                    "Designed a GPT-4 Turbo RAG pipeline with LlamaIndex and MySQL to convert natural language into executable SQL, streamlining query creation and accelerating analysis turnaround.",
+                    "Conducted structured QA with varied question phrasings, achieving consistent SQL accuracy across diverse query formats.",
+                    "Automated preprocessing of 500+ transcript files with Python text-cleaning scripts, cutting manual formatting time by 80% and enabling faster ingestion into NLP pipelines.",
+                  ],
       },
     ],
   },

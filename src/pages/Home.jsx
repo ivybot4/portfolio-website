@@ -37,17 +37,21 @@ export default function Home() {
           <div className="w-full">
             <h2 className="text-3xl font-bold">About Me</h2>
 
-            <p className="mt-5 max-w-[940px] text-lg leading-8 text-neutral-800">
-              Hi, I am an AI/ML engineer with over 2 years of experience and a Master’s degree in Artificial Intelligence.
-              I build intelligent systems that are useful, reliable, and thoughtfully designed. My work spans agentic-systems, machine learning, backend engineering, LLM applications, recommendation systems, and production ML workflows.
-              In my current role, along with other LLM-based and agentic projects, I built an end-to-end ML pipeline for a heavy-freight price prediction model that increased quarterly revenue by 25%, owning everything from data analysis and model selection to AWS deployment, logging and automatic model retraining.
-              I’m especially interested in agentic AI, personalization, deep learning, and creative technical projects. Outside of work, I like reading, playing electric guitar, and aviation.
-
-
-            </p>
+            <div className="mt-5 max-w-[940px] space-y-4 text-lg leading-8 text-neutral-800">
+              <p>
+                Hi, I am an AI/ML Engineer with over 2 years of experience and an M.S. in Artificial Intelligence from Boston University.
+              </p>
+              <p>
+                Most of my professional experience focuses on building reliable agentic systems, LLM-based applications, and end-to-end machine learning pipelines deployed on cloud platforms.
+              </p>
+              <p>
+                I also like to build things that I would find useful. I was trying to understand how FAA sectional charts are read (they look pretty complicated if you're not from an aviation background), and so I fine-tuned a vision language model to understand those.
+                Or I wanted to find a book according to my mood, so built a recommender using LLMs and two-tower architecture (and embedding lookups etc for the cold-start problem).
+              </p>
+            </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <SocialButton href="https://github.com/navyascorner">
+              <SocialButton href="https://github.com/ivybot4">
                 GitHub
               </SocialButton>
 
@@ -63,7 +67,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-black bg-white px-8 py-2 text-xs uppercase tracking-[0.18em] transition hover:bg-black hover:text-white">
-                Check Out what I am Building here
+                Check out my projects here
               </a>
             </div>
           </div>

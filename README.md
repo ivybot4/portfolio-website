@@ -1,7 +1,6 @@
 # Portfolio Website
 
-Please check out my projects at [Project Portfolio](https://navyascorner.github.io/portfolio-website/).
-
+Please check out my projects at Please check out my projects at [Project Portfolio](https://navyajain.dev/).
 ## About the code
 
 - `index.html` loads the box that hosts `main.jsx` which is the entry point for the website code.

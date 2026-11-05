@@ -60,8 +60,8 @@ export const projects = [
     ],
     image: `${import.meta.env.BASE_URL}book-recommendation.png`,
     detailImage: `${import.meta.env.BASE_URL}book-home.png`,
-    github: "https://github.com/navyascorner/book-recommendation",
-    demo: "https://navyascorner.github.io/book-recommendation/",
+    github: "https://github.com/ivybot4/book-recommendation",
+    demo: "https://ivybot4.github.io/book-recommendation/",
     homeDescription:
       "Agentic book recommender that decides how to retrieve and rank candidates (two-tower hybrid, embedding lookup) based on context given by the user.",
     detailIntro:
