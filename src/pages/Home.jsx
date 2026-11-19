@@ -176,49 +176,13 @@ export default function Home() {
                 </span>
               </h4>
 
-              {position.groups ? (
-                <ul className="mt-3 space-y-4">
-                  {position.groups.map((group) => {
-                    // One visible bullet: your summary if written, otherwise the first bullet.
-                    const headline = group.summary || group.bullets[0];
-                    const rest = group.summary ? group.bullets : group.bullets.slice(1);
-
-                    return (
-                      <li key={group.title}>
-                        <p className="text-base font-bold">{group.title}</p>
-                        <ul className="mt-1 list-disc pl-5 text-sm leading-6 text-neutral-800">
-                          <li>
-                            <RichText text={headline} />
-                          </li>
-                        </ul>
-                        {rest.length > 0 && (
-                          <details className="group mt-1">
-                            <summary className="inline-flex list-none items-center gap-1 text-xs uppercase tracking-[0.16em] text-neutral-600 hover:text-black [&::-webkit-details-marker]:hidden">
-                              <span className="transition-transform group-open:rotate-90">▸</span>
-                              Click for all details
-                            </summary>
-                            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-6 text-neutral-800">
-                              {rest.map((bullet) => (
-                                <li key={bullet}>
-                                  <RichText text={bullet} />
-                                </li>
-                              ))}
-                            </ul>
-                          </details>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              ) : (
-                <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-6 text-neutral-800">
-                  {position.bullets.map((bullet) => (
-                    <li key={bullet}>
-                      <RichText text={bullet} />
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-6 text-neutral-800">
+                {position.bullets.map((bullet) => (
+                  <li key={bullet}>
+                    <RichText text={bullet} />
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
