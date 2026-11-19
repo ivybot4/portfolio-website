@@ -13,10 +13,11 @@ export default function ProjectDetail() {
           Project Not Found
         </h1>
         <Link
-          to="/projects"
+          to="/"
+          state={{ scrollTo: "domains" }}
           className="mt-8 inline-block border border-black bg-white px-4 py-2 text-xs uppercase tracking-wide hover:bg-black hover:text-white"
         >
-          Back to Projects
+          Back to Domains
         </Link>
       </main>
     );
@@ -37,10 +38,11 @@ export default function ProjectDetail() {
         {/* HEADER */}
         <header className="mb-14 text-center">
           <Link
-            to="/projects"
+            to="/"
+          state={{ scrollTo: "domains" }}
             className="mb-6 inline-block border border-black bg-white px-4 py-2 text-xs uppercase tracking-wide hover:bg-black hover:text-white"
           >
-            ← Back to Projects
+            ← Back to Domains
           </Link>
 
           <h1 className="mx-auto mt-3 max-w-[900px] text-3xl font-bold uppercase tracking-[0.14em] text-neutral-800 [font-family:'Open_Sans',sans-serif] sm:text-4xl lg:text-5xl lg:tracking-[0.18em]">
