@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Section from "../components/Section";
 import SocialButton from "../components/SocialButton";
 import ProjectCard from "../components/ProjectCard";
@@ -7,23 +7,7 @@ import RichText from "../components/RichText";
 import { experience } from "../data/experience";
 import { education } from "../data/education";
 import { projects } from "../data/projects";
-
-
-// Images live in public/domains/ (each image already has its title and topics).
-const domains = [
-  {
-    image: "pricing-systems.png",
-    alt: "ML Pricing Systems: regression, neural networks, confidence model, markups, A/B tests, retraining, transfer learning",
-  },
-  {
-    image: "applied-ai.png",
-    alt: "Agentic Systems: tools, MCP, multi-agent, eval harness, guardrails, RAG, prompt engineering",
-  },
-  {
-    image: "on-device.png",
-    alt: "LLMs, On-Device AI and Inference: transformers, quantization, multimodal, KV cache, runtimes, GPU performance, fine-tuning",
-  },
-];
+import { domains } from "../data/domains";
 
 function ScrollHint() {
   return (
@@ -33,7 +17,6 @@ function ScrollHint() {
     </div>
   );
 }
-
 
 export default function Home() {
   const location = useLocation();
@@ -58,7 +41,7 @@ export default function Home() {
         </h1>
 
         <div className="mx-auto mt-10 grid w-full max-w-[1180px] items-center gap-10 md:grid-cols-[260px_1fr]">
-          <div className="relative -top-13 flex justify-center md:justify-start">
+          <div className="flex justify-center md:justify-start">
             <div className="h-[220px] w-[220px] overflow-hidden rounded-full border-2 border-black bg-white sm:h-[250px] sm:w-[250px]">
               <img
                 src={`${import.meta.env.BASE_URL}profile.jpg`}
@@ -69,8 +52,6 @@ export default function Home() {
           </div>
 
           <div className="w-full">
-            {/*<h2 className="text-3xl font-bold">About Me</h2>*/}
-
             <div className="max-w-[940px] space-y-4 text-lg leading-8 text-neutral-800">
               <p>
                 Hi, I am an AI/ML Engineer with over 2 years of experience and an M.S. in Artificial Intelligence from Boston University.
@@ -79,16 +60,11 @@ export default function Home() {
                 My professional experience focuses on building reliable agentic systems, LLM-based applications, and end-to-end machine learning pipelines deployed on cloud platforms.
                 I also bring expertise in on-device LLMs (fine-tuning, quantization) and ML inference.
               </p>
-              <div>
-                <ol className="mt-2 list-decimal space-y-1 pl-6">
-                  <li>I was the first ML Engineer at Veritread, and built the entire freight price prediction pipeline from proof of concept to deployment. My models increased quaterly revenue by 20% and quote acceptance rate by 37%.</li>
-                  <li>I then automated the entire bidding pipeline with an agent that would price items directly from CSV, group them togther to ship, select freight for multiple pickup and dropoff and more.</li>
-                  <li>I fine-tuned and quantized an audio model (Whisper) with code-switching on real-time audio.</li>
-                </ol>
-              </div>
-              <p>
-                
-              </p>
+              <ol className="mt-2 list-decimal space-y-1 pl-6">
+                <li>I was the first ML Engineer at Veritread, and built the entire freight price prediction pipeline from proof of concept to deployment. My models increased quarterly revenue by 20% and quote acceptance rate by 37%.</li>
+                <li>I then automated the entire bidding pipeline with an agent that would price items directly from CSV, group them together to ship, select freight for multiple pickup and dropoff and more.</li>
+                <li>I fine-tuned and quantized an audio model (Whisper) with code-switching on real-time audio.</li>
+              </ol>
             </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -98,10 +74,6 @@ export default function Home() {
 
               <SocialButton href="https://linkedin.com/in/navya45">
                 LinkedIn
-              </SocialButton>
-
-              <SocialButton href={`${import.meta.env.BASE_URL}resume.pdf`}>
-                Resume
               </SocialButton>
             </div>
           </div>
@@ -126,13 +98,18 @@ export default function Home() {
           </div>
           <div className="grid w-full grid-cols-1 justify-items-center gap-y-16 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-20">
             {domains.map((domain) => (
-              <div key={domain.image} className="w-full max-w-[300px] aspect-square overflow-hidden border-[2px] border-black bg-white">
+              <Link
+                key={domain.id}
+                to={`/domains/${domain.id}`}
+                aria-label={`Read about ${domain.title}`}
+                className="group block w-full max-w-[300px] aspect-square overflow-hidden border-[2px] border-black bg-white"
+              >
                 <img
                   src={`${import.meta.env.BASE_URL}domains/${domain.image}`}
                   alt={domain.alt}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-              </div>
+              </Link>
             ))}
           </div>
           <ScrollHint />
@@ -140,58 +117,53 @@ export default function Home() {
       </div>
 
 {/* PROFESSIONAL EXPERIENCE */}
-<div id="experience" className="scroll-mt-4">
-<Section title="Professional Experience">
-  <div className="mx-auto max-w-3xl space-y-8">
-    {experience.map((companyItem) => (
-      <article
-        key={companyItem.company}
-        className="border-l-2 border-black pl-5"
-      >
-        <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-700">
-          {companyItem.date}
-        </p>
+      <Section title="Professional Experience">
+        <div className="mx-auto max-w-5xl divide-y divide-black/15 border-y border-black/15">
+          {experience.map((companyItem) => (
+            <article
+              key={companyItem.company}
+              className="grid gap-x-6 gap-y-1 py-5 md:grid-cols-[150px_1fr]"
+            >
+              {/* left: when and where */}
+              <div className="text-xs leading-5 text-neutral-600">
+                <p className="font-medium uppercase tracking-[0.12em] text-neutral-800">{companyItem.date}</p>
+                <p>{companyItem.location}</p>
+              </div>
 
-        <h3 className="mt-1.5 text-xl font-bold">
-          {companyItem.company}
-        </h3>
+              {/* right: company, roles, bullets */}
+              <div>
+                <h3 className="text-lg font-bold leading-6">{companyItem.company}</h3>
+                {companyItem.note && (
+                  <p className="text-xs italic text-neutral-600">{companyItem.note}</p>
+                )}
 
-        <p className="mt-1 text-xs text-neutral-700">
-          {companyItem.location}
-        </p>
+                <div className="mt-2 space-y-3">
+                  {companyItem.positions.map((position) => (
+                    <div key={`${companyItem.company}-${position.role}`}>
+                      <h4 className="flex flex-wrap items-baseline justify-between gap-x-3 text-sm font-semibold">
+                        {position.role}
+                        {position.date && (
+                          <span className="text-xs font-normal text-neutral-600">{position.date}</span>
+                        )}
+                      </h4>
 
-        {companyItem.note && (
-          <p className="mt-3 text-sm italic text-neutral-700">
-            {companyItem.note}
-          </p>
-        )}
-
-        <div className="mt-5 space-y-6">
-          {companyItem.positions.map((position) => (
-            <div key={`${companyItem.company}-${position.role}`}>
-              <h4 className="text-base font-semibold">
-                {position.role}
-                <span className="ml-2 text-xs font-normal uppercase tracking-[0.16em] text-neutral-600">
-                  {position.date}
-                </span>
-              </h4>
-
-              <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-6 text-neutral-800">
-                {position.bullets.map((bullet) => (
-                  <li key={bullet}>
-                    <RichText text={bullet} />
-                  </li>
-                ))}
-              </ul>
-            </div>
+                      <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[13.5px] leading-[1.55] text-neutral-800 marker:text-neutral-400">
+                        {position.bullets.map((bullet) => (
+                          <li key={bullet}>
+                            <RichText text={bullet} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
-      </article>
-    ))}
-  </div>
-  <ScrollHint />
-</Section>
-</div>
+        <ScrollHint />
+      </Section>
+
       {/* EDUCATION */}
 <Section title="Education">
   <div className="mx-auto grid w-full max-w-5xl gap-12 md:grid-cols-2">
@@ -217,7 +189,7 @@ export default function Home() {
   <ScrollHint />
 </Section>
 
-      {/* PROJECTS (same cards as Domains for now) */}
+      {/* PROJECTS */}
       <div id="projects" className="scroll-mt-4">
         <Section title="Projects">
           <div className="grid w-full grid-cols-1 justify-items-center gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-14">

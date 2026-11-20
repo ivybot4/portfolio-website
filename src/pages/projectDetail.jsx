@@ -33,7 +33,7 @@ export default function ProjectDetail() {
     (project.subtitle ? project.subtitle.split(",").map((s) => s.trim()) : []);
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#F8F2FA] px-4 py-10 text-neutral-950 sm:px-6">
+    <main className="min-h-screen overflow-x-hidden bg-[#F8F2FA] px-4 py-10 font-body text-neutral-950 sm:px-6">
       <div className="mx-auto w-full max-w-[1180px]">
         {/* HEADER */}
         <header className="mb-14 text-center">
@@ -45,7 +45,7 @@ export default function ProjectDetail() {
             ← Back to Domains
           </Link>
 
-          <h1 className="mx-auto mt-3 max-w-[900px] text-3xl font-bold uppercase tracking-[0.14em] text-neutral-800 [font-family:'Open_Sans',sans-serif] sm:text-4xl lg:text-5xl lg:tracking-[0.18em]">
+          <h1 className="mx-auto mt-3 max-w-[900px] text-3xl font-bold uppercase tracking-[0.14em] text-neutral-800 sm:text-4xl lg:text-5xl lg:tracking-[0.18em]">
             {project.title}
           </h1>
         </header>
@@ -65,13 +65,7 @@ export default function ProjectDetail() {
           </div>
 
           <div className="mx-auto mt-10 max-w-[900px] text-center">
-            <p className="text-xs uppercase tracking-[0.28em] text-neutral-700">
-              Selected Project
-            </p>
-
-            <h2 className="mt-4 text-2xl font-bold">Agentic Book Recommender</h2>
-
-            <p className="mx-auto mt-4 max-w-[720px] text-lg leading-8 text-neutral-800">
+            <p className="mx-auto max-w-[720px] text-lg leading-8 text-neutral-800">
               {project.detailIntro ?? project.homeDescription}
             </p>
 

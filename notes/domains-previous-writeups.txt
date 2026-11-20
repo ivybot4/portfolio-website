@@ -1,0 +1,175 @@
+// Domains shown on the homepage and at /domains/:domainId.
+// Everything written here comes from experience.js, projects.js and the About text.
+// Lines marked TODO are gaps worth filling in yourself (diagrams, extra numbers).
+import { Lead, Section, P, A, List, Stats, Callout, Columns } from "../components/editorial";
+
+export const domains = [
+  {
+    id: "agentic-systems",
+    image: "applied-ai.png",
+    alt: "Agentic Systems: tools, MCP, multi-agent, eval harness, guardrails, RAG, prompt engineering",
+    title: "Agentic Systems",
+    headline: "Production AI Agents for Freight Bidding, Built and Evaluated End to End",
+    tags: ["AWS Bedrock AgentCore", "Strands Agents SDK", "Claude Sonnet", "MCP", "RAG", "Evals"],
+    Content: () => (
+      <>
+        <Lead>
+          I led the development of a production agentic bidding chatbot that prices shipments straight from a chat, PDF or
+          CSV, grounded in the ML pricing model I built.
+        </Lead>
+
+        <Stats
+          items={[
+            { value: "65%", label: "Less manual bid processing" },
+            { value: "7", label: "Models evaluated" },
+            { value: "93%", label: "Text-to-SQL accuracy" },
+          ]}
+        />
+
+        <Section title="Overview & Problem">
+          <P>
+            Bids arrived as chats, PDFs and CSVs and were processed by hand: pricing each item, grouping items to ship
+            together, and choosing freight for multiple pickups and drop-offs. The agent automates that whole bidding
+            pipeline.
+          </P>
+        </Section>
+
+        <Section title="Architecture & Design Choices">
+          <List
+            items={[
+              "Built on AWS Bedrock AgentCore with the Strands Agents SDK and Claude Sonnet, using MCP for tool calling, planning and orchestration.",
+              "Multi-step agentic workflows grounded in the machine-learning pricing model, so prices come from the model rather than from the LLM.",
+              "Handles chat, PDF and CSV requests and answers follow-ups, with concurrent sessions, memory and state management in Python.",
+            ]}
+          />
+          <Callout title="Evaluation harness">
+            I built an agent evaluation framework to choose the model and test tool selection and hallucinations across 7
+            models, 15+ prompts and 20 past user scenarios.
+          </Callout>
+        </Section>
+
+        <Section title="Results">
+          <P>The agent cut manual bid processing by 65%.</P>
+        </Section>
+
+        <Section title="Related Work">
+          <List
+            items={[
+              "Text-to-SQL at VeriTread: prompt-engineered Gemini Flash on GCP to write SQL over messy enterprise data in Snowflake, with a TypeScript UI. 93% accuracy across 50 test cases.",
+              "Text-to-SQL at Realix AI: a GPT-4 Turbo RAG pipeline with LlamaIndex and MySQL that turns natural language into executable SQL.",
+              <>
+                NoraBot, an agentic book recommender that decides how to retrieve and rank candidates (two-tower hybrid,
+                embedding lookup) from what the user tells it.{" "}
+                <A href="https://ivybot4.github.io/book-recommendation/">Try it</A> ·{" "}
+                <A href="https://github.com/ivybot4/book-recommendation">GitHub</A>
+              </>,
+            ]}
+          />
+        </Section>
+
+        {/* TODO: add an agent architecture diagram */}
+      </>
+    ),
+  },
+  {
+    id: "pricing-systems",
+    image: "pricing-systems.png",
+    alt: "ML Pricing Systems: regression, neural networks, confidence model, markups, A/B tests, retraining, transfer learning",
+    title: "ML Pricing Systems",
+    headline: "Freight Pricing Models, from Proof of Concept to Production",
+    tags: ["LightGBM", "PyTorch", "scikit-learn", "Amazon SageMaker", "EKS", "A/B Testing"],
+    Content: () => (
+      <>
+        <Lead>
+          As the first ML Engineer at VeriTread, I built the freight price prediction pipeline end to end, from the first
+          proof of concept to production models pricing freight across the US and Canada.
+        </Lead>
+
+        <Stats
+          items={[
+            { value: "+20%", label: "Quarterly revenue" },
+            { value: "+37%", label: "Quote acceptance (A/B)" },
+            { value: "<70 ms", label: "p95 latency" },
+          ]}
+        />
+
+        <Section title="Overview & Problem">
+          <P>
+            Freight quotes were priced with legacy rules. They could not react to recent market movement or to how a
+            specific lane, the pickup and drop-off pair, actually behaves. The goal was a model that prices freight across
+            the US accurately enough to quote automatically, with guardrails the business could trust.
+          </P>
+        </Section>
+
+        <Section title="Architecture & Design Choices">
+          <List
+            items={[
+              "Pricing models in LightGBM, PyTorch and scikit-learn, written in Python.",
+              "Lane-level pickup and drop-off features, plus 30-day, 90-day and 1-year lookback tables to capture recent market trends and lane-specific pricing.",
+              "A separate LightGBM confidence model on 100+ time-series features, so stakeholders can set risk thresholds and guardrails on automated quotes.",
+              "Expansion to Canada through transfer learning from the US model and a ratio prediction model, built with limited data.",
+            ]}
+          />
+          <Columns count={2}>
+            <Callout title="Serving">
+              Deployed on Amazon SageMaker behind a REST API on EKS (Kubernetes), serving predictions at p95 latency
+              under 70 ms.
+            </Callout>
+            <Callout title="Retraining">
+              Monthly retraining with EventBridge pipelines that version model artifacts and update the SageMaker
+              endpoint, monitored with CloudWatch and Datadog.
+            </Callout>
+          </Columns>
+        </Section>
+
+        <Section title="Results">
+          <P>
+            I ran a live A/B experiment of the ML pricing model against legacy rule-based pricing. It showed a 37% lift in
+            quote acceptance rate and gave the business a data-driven launch decision. In production, the models increased
+            quarterly revenue by 20%.
+          </P>
+          <Callout title="Key finding" tone="success">
+            The confidence model lets the business choose how much risk to accept on each automated quote.
+          </Callout>
+        </Section>
+
+        {/* TODO: add an architecture diagram */}
+      </>
+    ),
+  },
+  {
+    id: "on-device-ai",
+    image: "on-device.png",
+    alt: "LLMs, On-Device AI and Inference: transformers, quantization, multimodal, KV cache, runtimes, GPU performance, fine-tuning",
+    title: "LLMs, On-Device AI and Inference",
+    headline: "Fine-tuning and Quantizing Models to Run Where the Data Is",
+    tags: ["PyTorch", "Transformers", "Quantization", "Whisper", "Fine-tuning", "Multimodal"],
+    Content: () => (
+      <>
+        <Lead>
+          I fine-tune and quantize models so they run fast and small enough for real-time and on-device use, from speech
+          recognition to vision-language models.
+        </Lead>
+
+        <Section title="Real-time Speech with Whisper">
+          <P>
+            I fine-tuned and quantized Whisper for code-switched speech, where speakers move between languages mid-sentence,
+            on real-time audio.
+          </P>
+          {/* TODO: add the setup (data, quantization method, target device) and results such as WER, latency and model size.
+              <Stats items={[{ value: "...", label: "WER" }, { value: "...", label: "Latency" }, { value: "...", label: "Model size" }]} /> */}
+        </Section>
+
+        <Section title="Vision-Language Model for FAA Charts">
+          <P>
+            FAA sectional charts are dense and hard to read without an aviation background, so I fine-tuned a
+            vision-language model to understand them.
+          </P>
+          {/* TODO: add the base model, dataset, and before/after examples */}
+        </Section>
+      </>
+    ),
+  },
+];
+
+export const findDomain = (id) => domains.find((domain) => domain.id === id);

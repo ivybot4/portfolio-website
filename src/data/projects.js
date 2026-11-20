@@ -1,5 +1,5 @@
 // add projects here
-// projects page will show all of them, home will show top 3
+// all of them show in the Projects section on the homepage
 // demo: "" hides the Try Here! button and makes the image unclickable
 // readmore: "" hides the Read More button
 //
