@@ -8,7 +8,7 @@ stats:
   - 93% | Text-to-SQL accuracy
 ---
 
-I led the development of a production agentic bidding chatbot that prices shipments straight from chat or CSV, grounded in the ML pricing model I built.
+I led the development of a production agentic bidding chatbot that prices shipments straight from chat or CSV, grounded in the ML pricing model I built. It runs on LangGraph and Claude via AWS Bedrock, and I also built its eval harness and guardrails, which I red-teamed against prompt injection.
 
 # An AI Agent
 

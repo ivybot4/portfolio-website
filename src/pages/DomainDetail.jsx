@@ -111,7 +111,7 @@ export default function DomainDetail() {
           <SubHeading items={domain.tags} />
           <DomainActions githubUrl={domain.github} tryUrl={domain.try} />
 
-          <div className="mt-12">
+          <div className="mt-6">
             {domain.introHtml && <Lead html={domain.introHtml} />}
             {domain.stats.length > 0 && <Stats items={domain.stats} />}
 

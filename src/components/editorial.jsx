@@ -11,7 +11,7 @@ const BUTTON =
 export function Lead({ html }) {
   return (
     <div
-      className={`${SERIF} domain-prose mb-10 text-[clamp(19px,1.8vw,22px)] leading-[1.55] text-[#242424]`}
+      className={`${SERIF} domain-prose mb-10 text-[clamp(17px,1.5vw,19px)] leading-[1.6] text-[#242424]`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -87,9 +87,9 @@ export function Stats({ items }) {
       {items.map((stat) => (
         <div
           key={stat.label}
-          className="border-b border-[#222222]/20 px-2 py-5 text-center last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
+          className="border-b border-[#222222]/20 px-2 py-3 text-center last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
         >
-          <p className={`${SERIF} text-[clamp(30px,3.6vw,42px)] font-bold leading-none text-[#141414]`}>
+          <p className={`${SERIF} text-[clamp(18px,1.8vw,22px)] font-bold leading-none text-[#141414]`}>
             {stat.value}
           </p>
           <p className={`${SANS} mt-2 text-[12px] font-medium uppercase tracking-[0.12em] text-[#6d6a63]`}>
