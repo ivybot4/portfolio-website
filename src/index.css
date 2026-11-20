@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+/* Experience card titles. Descriptions use Open Sans Condensed, bundled from
+   @fontsource/open-sans-condensed in main.jsx (Google has retired that family). */
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,8 +1,6 @@
 ---
-headline: Freight Pricing Models, from Proof of Concept to Production
-tags: LightGBM, PyTorch, scikit-learn, Amazon SageMaker, EKS, A/B Testing
-github:
-try:
+headline: ML Systems for Pricing
+tags: LightGBM, PyTorch, scikit-learn, AWS, EKS, A/B Testing, Docker, APIs
 stats:
   - +20% | Quarterly revenue
   - +37% | Quote acceptance (A/B)
@@ -11,32 +9,9 @@ stats:
 
 As the first ML Engineer at VeriTread, I built the freight price prediction pipeline end to end, from the first proof of concept to production models pricing freight across the US and Canada.
 
-# Topic 1
+# Machine Learning Pricing Systems
 
-## Subtopic 1.1
+Building a pricing system is not limited to building a regression (or time-series) model that has a low average error and is deployed with FastAPI/Streamlit. 
 
-Placeholder text for subtopic 1.1. Replace this with the real write-up.
+A good system design involves pricing, finding patterns where it fails, using other models or combinations to fix those patterns, confidence models for each quote, A/B testing before pushing to prod, and selecting margins based on polynomial representation or A/B tests. Deployment to reduce latency, increase throughput, proper authentication, health checks, and deployment on cloud platforms like AWS or GCP with proper Docker containers or Kubernetes cluster integrations of the frontend/backend are also important.
 
-## Subtopic 1.2
-
-Placeholder text for subtopic 1.2. Replace this with the real write-up.
-
-# Topic 2
-
-## Subtopic 2.1
-
-Placeholder text for subtopic 2.1. Replace this with the real write-up.
-
-## Subtopic 2.2
-
-Placeholder text for subtopic 2.2. Replace this with the real write-up.
-
-# Topic 3
-
-## Subtopic 3.1
-
-Placeholder text for subtopic 3.1. Replace this with the real write-up.
-
-## Subtopic 3.2
-
-Placeholder text for subtopic 3.2. Replace this with the real write-up.

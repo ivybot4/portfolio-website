@@ -1,6 +1,12 @@
+// Shown on the homepage carousel: `logo` (file in public/work-exp, optional;
+// the company name is shown without one), the latest role (positions[0]),
+// `summary` (~30 words) and, under View More, every role and bullet.
 export const experience = [
   {
     company: "Ritchie Bros. / VeriTread",
+    logo: "ritchie-bros-logo-cropped.jpg",
+    summary:
+      "Built AI agents and real-time ML pricing models that increased quarterly revenue by 20% and acceptance by 37%.",
     date: "Jul 2024 – Present",
     location: "Boston, MA · Remote",
     note: "Ritchie Bros. acquired VeriTread in March 2026.",
@@ -31,7 +37,27 @@ export const experience = [
     ],
   },
   {
+    company: "BU Data Science Mentoring Circle",
+    logo: "bu-hariri-logo.png",
+    summary:
+      "Mentor 3 data science students in weekly one-on-one sessions and teach AI security and prompt injection workshops to 30 mentees.",
+    date: "Oct 2026 – Present",
+    location: "Remote, US",
+    positions: [
+      {
+        role: "Mentor",
+        bullets: [
+          "Mentor 3 data science students one-on-one through weekly sessions on portfolio projects and AI/ML theory",
+          "Host workshops for 30 mentees on topics like AI Security and prompt injection",
+        ],
+      },
+    ],
+  },
+  {
     company: "Realix AI",
+    logo: "realixai-logo.jpeg",
+    summary:
+      "Developed a LangChain RAG text-to-SQL pipeline and integrated client databases into an AI assistant that sends emails and Slack messages.",
     date: "Nov 2024 – Jan 2025",
     location: "Boston, MA · Remote",
     positions: [
@@ -47,6 +73,9 @@ export const experience = [
   },
   {
     company: "Boston University",
+    logo: "bu-ta-logo-cropped.png",
+    summary:
+      "Managed 2 TAs and 3 graders, wrote all weekly problem sets, and taught probability and Bayesian inference to 150 students.",
     date: "Jan 2023 – Jan 2024",
     location: "Boston, MA · On-site",
     positions: [
@@ -61,7 +90,24 @@ export const experience = [
     ],
   },
   {
+    company: "Tata Power DDL",
+    logo: "tata-power-ddl-logo.jpeg",
+    summary:
+      "Built a GUI to present Simulink grid models showing high-voltage distribution cuts 20-year costs by 60% and losses by 78%.",
+    date: "Dec 2021 – Jan 2022",
+    location: "Delhi, India",
+    positions: [
+      {
+        role: "Software Engineer Intern",
+        bullets: [],
+      },
+    ],
+  },
+  {
     company: "Go Girl Organisation",
+    logo: "go-girl-logo.jpeg",
+    summary:
+      "Hosted data science workshops for 35 women in tech and co-developed a long-term AWS and Azure cloud data engineering curriculum.",
     date: "Jun 2021 – Jan 2022",
     location: "Delhi, India",
     positions: [
@@ -77,6 +123,9 @@ export const experience = [
   },
   {
   company: "DoorsTour",
+  logo: "doorstour-logo-cropped.jpeg",
+  summary:
+    "Developed PyTorch computer vision models for image segmentation on an AR platform that gives virtual tours of homes and amenities.",
   date: "Mar 2021 – Aug 2021",
   location: "Delhi, India",
   positions: [
@@ -92,6 +141,9 @@ export const experience = [
 },
   {
     company: "Nawaazish Crew",
+    logo: "nawaazish-crew-logo.jpeg",
+    summary:
+      "Co-founded a 45-volunteer nonprofit and directed COVID-19 relief that raised 2 lakh INR to supply essentials to 100+ underprivileged families.",
     date: "Feb 2020 – Jan 2021",
     location: "Delhi, India",
     positions: [

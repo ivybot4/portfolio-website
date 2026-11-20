@@ -1,25 +1,45 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Section from "../components/Section";
-import SocialButton from "../components/SocialButton";
 import ProjectCard from "../components/ProjectCard";
-import RichText from "../components/RichText";
+import ExperienceCarousel from "../components/ExperienceCarousel";
+import SectionNav from "../components/SectionNav";
 import { experience } from "../data/experience";
 import { education } from "../data/education";
-import { projects } from "../data/projects";
+import { projects, projectFilters } from "../data/projects";
 import { domains } from "../data/domains";
+import { contactLinks } from "../data/contact";
 
-function ScrollHint() {
+function ScrollHint({ className = "mt-8" }) {
   return (
-    <div className="mt-16 flex flex-col items-center gap-2 text-neutral-800">
+    <div className={`${className} flex flex-col items-center gap-2 text-neutral-800`}>
       <p className="text-xs uppercase tracking-[0.28em]">Scroll down for more</p>
       <span className="animate-bounce text-2xl leading-none">↓</span>
     </div>
   );
 }
 
+// Pinned bar at the top; ids match the sections below.
+const navItems = [
+  { id: "home", label: "Home" },
+  { id: "domains", label: "Domains" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
+// Only offer filters that match at least one project.
+const filters = [
+  { id: "all", label: "All" },
+  ...projectFilters.filter((f) => projects.some((p) => p.categories?.includes(f.id))),
+];
+
 export default function Home() {
   const location = useLocation();
+  const [projectFilter, setProjectFilter] = useState("all");
+  const shownProjects =
+    projectFilter === "all" ? projects : projects.filter((p) => p.categories?.includes(projectFilter));
 
   // Project pages link back here with { scrollTo: "domains" }.
   useEffect(() => {
@@ -29,22 +49,20 @@ export default function Home() {
   }, [location.state]);
 
   return (
-    <main className="min-h-screen overflow-x-hidden font-body bg-gradient-to-b from-[#E8D8F0] via-[#F0E6F5] to-[#FFF9FF] text-neutral-950">
+    <main className="min-h-screen overflow-x-clip font-body bg-gradient-to-b from-[#E8D8F0] via-[#F0E6F5] to-[#FFF9FF] text-neutral-950">
       {/* ABOUT / HERO */}
-      <section className="mx-auto flex min-h-screen w-full max-w-[1300px] flex-col justify-center px-8 py-16 sm:px-12">
-        <p className="text-center text-sm uppercase tracking-[0.35em] text-neutral-800">
-          Home
-        </p>
+      <SectionNav items={navItems} />
 
-        <h1 className="mt-4 text-center text-5xl font-bold uppercase tracking-[0.18em] sm:text-7xl">
+      <section id="home" className="mx-auto flex w-full max-w-[1300px] scroll-mt-12 flex-col justify-center px-8 py-12 sm:px-12 sm:py-14">
+        <h1 className="text-center text-5xl font-bold uppercase tracking-[0.18em] sm:text-7xl">
           Navya Jain
         </h1>
 
-        <div className="mx-auto mt-10 grid w-full max-w-[1180px] items-center gap-10 md:grid-cols-[260px_1fr]">
+        <div className="mx-auto mt-8 grid w-full max-w-[1180px] items-center gap-8 md:grid-cols-[250px_1fr]">
           <div className="flex justify-center md:justify-start">
-            <div className="h-[220px] w-[220px] overflow-hidden rounded-full border-2 border-black bg-white sm:h-[250px] sm:w-[250px]">
+            <div className="h-[190px] w-[190px] overflow-hidden rounded-full border-2 border-black bg-white sm:h-[240px] sm:w-[240px]">
               <img
-                src={`${import.meta.env.BASE_URL}profile.jpg`}
+                src={`${import.meta.env.BASE_URL}navya-img.jpeg`}
                 alt="Navya Jain"
                 className="h-full w-full object-cover"
               />
@@ -52,7 +70,7 @@ export default function Home() {
           </div>
 
           <div className="w-full">
-            <div className="max-w-[940px] space-y-4 text-lg leading-8 text-neutral-800">
+            <div className="max-w-[940px] space-y-3 text-base leading-7 text-neutral-800 sm:text-[17px]">
               <p>
                 Hi, I am an AI/ML Engineer with over 2 years of experience and an M.S. in Artificial Intelligence from Boston University.
               </p>
@@ -67,15 +85,6 @@ export default function Home() {
               </ol>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <SocialButton href="https://github.com/ivybot4">
-                GitHub
-              </SocialButton>
-
-              <SocialButton href="https://linkedin.com/in/navya45">
-                LinkedIn
-              </SocialButton>
-            </div>
           </div>
         </div>
         <ScrollHint />
@@ -84,19 +93,19 @@ export default function Home() {
       {/* DOMAINS */}
       <div
         id="domains"
-        className="scroll-mt-4 bg-cover bg-center"
+        className="scroll-mt-12 bg-cover bg-center"
         style={{ backgroundImage: `url(${import.meta.env.BASE_URL}background/projects-bg.jpg)` }}
       >
         <Section title="Domains">
-          <div className="mx-auto -mt-5 mb-12 max-w-2xl text-center">
+          <div className="mx-auto -mt-5 mb-8 max-w-2xl text-center">
             <p className="text-lg font-semibold text-neutral-900 sm:text-xl">
               What you can hand me end to end, from prototype to production.
             </p>
             <p className="mt-2 text-sm leading-6 text-neutral-800 sm:text-base">
-              These are the systems I know inside out. Click a domain for the work behind it, the projects and how they were built.
+              These are the systems I know inside out. Click a domain to read about it and the practices I follow. Read the work I've done behind it, the projects (in prod) and how they were built.
             </p>
           </div>
-          <div className="grid w-full grid-cols-1 justify-items-center gap-y-16 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-20">
+          <div className="mx-auto grid w-full max-w-[1000px] grid-cols-1 justify-items-center gap-y-8 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10">
             {domains.map((domain) => (
               <Link
                 key={domain.id}
@@ -112,93 +121,97 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          <ScrollHint />
         </Section>
       </div>
 
 {/* PROFESSIONAL EXPERIENCE */}
-      <Section title="Professional Experience">
-        <div className="mx-auto max-w-5xl divide-y divide-black/15 border-y border-black/15">
-          {experience.map((companyItem) => (
-            <article
-              key={companyItem.company}
-              className="grid gap-x-6 gap-y-1 py-5 md:grid-cols-[150px_1fr]"
-            >
-              {/* left: when and where */}
-              <div className="text-xs leading-5 text-neutral-600">
-                <p className="font-medium uppercase tracking-[0.12em] text-neutral-800">{companyItem.date}</p>
-                <p>{companyItem.location}</p>
-              </div>
-
-              {/* right: company, roles, bullets */}
-              <div>
-                <h3 className="text-lg font-bold leading-6">{companyItem.company}</h3>
-                {companyItem.note && (
-                  <p className="text-xs italic text-neutral-600">{companyItem.note}</p>
-                )}
-
-                <div className="mt-2 space-y-3">
-                  {companyItem.positions.map((position) => (
-                    <div key={`${companyItem.company}-${position.role}`}>
-                      <h4 className="flex flex-wrap items-baseline justify-between gap-x-3 text-sm font-semibold">
-                        {position.role}
-                        {position.date && (
-                          <span className="text-xs font-normal text-neutral-600">{position.date}</span>
-                        )}
-                      </h4>
-
-                      <ul className="mt-1 list-disc space-y-0.5 pl-4 text-[13.5px] leading-[1.55] text-neutral-800 marker:text-neutral-400">
-                        {position.bullets.map((bullet) => (
-                          <li key={bullet}>
-                            <RichText text={bullet} />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-        <ScrollHint />
+      <Section id="experience" title="Professional Experience">
+        <ExperienceCarousel items={experience} />
       </Section>
 
       {/* EDUCATION */}
-<Section title="Education">
-  <div className="mx-auto grid w-full max-w-5xl gap-12 md:grid-cols-2">
+<Section id="education" title="Education">
+  <div className="mx-auto grid w-full max-w-5xl gap-6 md:grid-cols-2">
     {education.map((item) => (
+      // Fixed box size (500x173 on desktop); the card image scales inside it without cropping.
       <article
         key={`${item.degree}-${item.school}`}
-        className="border border-black bg-white/45 p-4"
+        className="h-[197px] overflow-hidden border border-black bg-white md:h-[173px]"
       >
-        <h3 className="text-xl font-bold">{item.degree}</h3>
-
-        <p className="mt-1.5 text-base">{item.school}</p>
-
-        <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-neutral-700">
-          {item.date}
-        </p>
-
-        <p className="mt-3 text-sm leading-6 text-neutral-800">
-          {item.details}
-        </p>
+        <img
+          src={`${import.meta.env.BASE_URL}education/${item.card}`}
+          alt={`${item.degree}, ${item.school}. ${item.details}`}
+          className="h-full w-full object-contain"
+        />
       </article>
     ))}
   </div>
-  <ScrollHint />
 </Section>
 
       {/* PROJECTS */}
-      <div id="projects" className="scroll-mt-4">
+      <div id="projects" className="scroll-mt-12">
         <Section title="Projects">
-          <div className="grid w-full grid-cols-1 justify-items-center gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-14">
-            {projects.map((project) => (
+          <p className="-mt-2 mb-5 text-center text-xs uppercase text-neutral-800">
+            Click on a topic to view related projects
+          </p>
+
+          <div role="group" aria-label="Filter projects" className="mb-10 flex flex-wrap justify-center gap-2">
+            {filters.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setProjectFilter(f.id)}
+                aria-pressed={projectFilter === f.id}
+                className="border border-black bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-950 transition hover:bg-black hover:text-white aria-pressed:bg-black aria-pressed:text-white"
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          <p className="sr-only" aria-live="polite">
+            Showing {shownProjects.length} {shownProjects.length === 1 ? "project" : "projects"}
+          </p>
+
+          {/* At most 3 per row (3 x 300px + 2 x 32px = 964px; 4 never fit); a short last row is centred. */}
+          <div className="mx-auto flex w-full max-w-[964px] flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-y-14">
+            {shownProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         </Section>
       </div>
+      {/* CONTACT */}
+      <Section id="contact" title="Contact Me">
+        {/* Same look as the site's buttons, larger: 6 across on desktop, 3 on tablets, 2 on phones. */}
+        <ul className="relative left-1/2 grid w-[88vw] -translate-x-1/2 grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+          {contactLinks
+            .filter((link) => link.href)
+            .map((link) => {
+              const isEmail = link.href.startsWith("mailto:");
+              return (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target={isEmail ? undefined : "_blank"}
+                    rel={isEmail ? undefined : "noopener noreferrer"}
+                    className="flex items-center gap-3 border border-black bg-white px-4 py-3 text-xs font-medium uppercase tracking-[0.14em] text-neutral-950 transition hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:text-sm"
+                  >
+                    {/* White tile keeps dark logos (GitHub, X, Medium) visible when the card turns black on hover. */}
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-white">
+                      <img
+                        src={`${import.meta.env.BASE_URL}contact/${link.icon}`}
+                        alt=""
+                        className="h-7 w-7 object-contain"
+                      />
+                    </span>
+                    <span className="flex-1 text-center">{link.label}</span>
+                  </a>
+                </li>
+              );
+            })}
+        </ul>
+      </Section>
     </main>
   );
 }

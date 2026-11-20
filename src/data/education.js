@@ -1,14 +1,18 @@
+// `card` is an image in public/education with the logo, degree and coursework.
+// `details` is the same coursework as text, read out by screen readers.
 export const education = [
   {
     degree: "M.S. in Artificial Intelligence",
     school: "Boston University",
+    card: "bu-card.png",
     date: "Sep 2022 – Jan 2024",
-    details: "Graduate coursework and projects in machine learning, deep learning, NLP, Computer Vision, RL, and AI systems.",
+    details: "Coursework: Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Reinforcement Learning, Data Science, and AI systems.",
   },
   {
     degree: "B.Tech in Electrical and Electronics Engineering",
     school: "Guru Gobind Singh Indraprastha University",
+    card: "ggsipu-card.png",
     date: "Aug 2018 - June 2022",
-    details: "CS courses included Computer Science courses like Programming, Object Oriented Programming and Data Structures.",
+    details: "Coursework: Object Oriented Programming, Data Structures, Neural Networks, Digital Signal Processing.",
   },
 ];

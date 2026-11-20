@@ -5,6 +5,8 @@ export default {
     extend: {
       fontFamily: {
         body: ["Inter", "system-ui", "sans-serif"],
+        spartan: ["'League Spartan'", "Inter", "system-ui", "sans-serif"],
+        condensed: ["'Open Sans Condensed'", "'Arial Narrow'", "system-ui", "sans-serif"],
       },
     },
   },

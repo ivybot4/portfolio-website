@@ -62,7 +62,7 @@ export function SubHeading({ items }) {
 export function DomainActions({ githubUrl, tryUrl }) {
   const all = [
     githubUrl && { label: "GitHub", href: githubUrl },
-    tryUrl && { label: "Try Here!", href: tryUrl },
+    tryUrl && { label: "Demo", href: tryUrl },
   ].filter(Boolean);
 
   if (all.length === 0) return null;

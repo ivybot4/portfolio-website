@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { projects } from "../data/projects";
+import { projects, hasDetailPage } from "../data/projects";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -14,17 +14,20 @@ export default function ProjectDetail() {
         </h1>
         <Link
           to="/"
-          state={{ scrollTo: "domains" }}
+          state={{ scrollTo: "projects" }}
           className="mt-8 inline-block border border-black bg-white px-4 py-2 text-xs uppercase tracking-wide hover:bg-black hover:text-white"
         >
-          Back to Domains
+          Back to Projects
         </Link>
       </main>
     );
   }
 
-  const previous = projects[index - 1];
-  const next = projects[index + 1];
+  // Previous/next skip projects that have no detail page yet.
+  const linked = projects.filter(hasDetailPage);
+  const position = linked.indexOf(project);
+  const previous = position > 0 ? linked[position - 1] : undefined;
+  const next = position >= 0 ? linked[position + 1] : undefined;
 
   // Falls back to splitting the existing `subtitle` string until
   // entries gain a proper `stack` array.
@@ -39,10 +42,10 @@ export default function ProjectDetail() {
         <header className="mb-14 text-center">
           <Link
             to="/"
-          state={{ scrollTo: "domains" }}
+          state={{ scrollTo: "projects" }}
             className="mb-6 inline-block border border-black bg-white px-4 py-2 text-xs uppercase tracking-wide hover:bg-black hover:text-white"
           >
-            ← Back to Domains
+            ← Back to Projects
           </Link>
 
           <h1 className="mx-auto mt-3 max-w-[900px] text-3xl font-bold uppercase tracking-[0.14em] text-neutral-800 sm:text-4xl lg:text-5xl lg:tracking-[0.18em]">
@@ -94,7 +97,7 @@ export default function ProjectDetail() {
                   rel="noopener noreferrer"
                   className="border border-black bg-white px-4 py-2 uppercase tracking-wide transition hover:bg-black hover:text-white"
                 >
-                  Try Here!
+                  Demo
                 </a>
               )}
 

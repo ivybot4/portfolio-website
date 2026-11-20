@@ -8,32 +8,6 @@ stats:
 
 I fine-tune and quantize models so they run fast and small enough for real-time and on-device use, from speech recognition to vision-language models.
 
-# Topic 1
+# Introduction to On-Device AI
 
-## Subtopic 1.1
-
-Placeholder text for subtopic 1.1. Replace this with the real write-up.
-
-## Subtopic 1.2
-
-Placeholder text for subtopic 1.2. Replace this with the real write-up.
-
-# Topic 2
-
-## Subtopic 2.1
-
-Placeholder text for subtopic 2.1. Replace this with the real write-up.
-
-## Subtopic 2.2
-
-Placeholder text for subtopic 2.2. Replace this with the real write-up.
-
-# Topic 3
-
-## Subtopic 3.1
-
-Placeholder text for subtopic 3.1. Replace this with the real write-up.
-
-## Subtopic 3.2
-
-Placeholder text for subtopic 3.2. Replace this with the real write-up.
+Most of the AI-powered features run with an active internet connection. But with on-device AI, large language models can be compressed (quantization, distillation, etc) to run directly on a phone or laptop's hardware.

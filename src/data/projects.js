@@ -1,6 +1,8 @@
 // add projects here
 // all of them show in the Projects section on the homepage
-// demo: "" hides the Try Here! button and makes the image unclickable
+// categories: [] ids from projectFilters at the bottom of this file (drives the filter buttons)
+// tagline: the caption on the card image, read out by screen readers
+// github / demo: "" greys out that button on the card until a link is added
 // readmore: "" hides the Read More button
 //
 // detail page fields:
@@ -58,6 +60,8 @@ export const projects = [
       "pandas",
       "NumPy",
     ],
+    tagline: "Semantic book recommender with two-tower candidate retrieval and LLM ranker",
+    categories: ["ai-applications"],
     image: `${import.meta.env.BASE_URL}book-recommendation.png`,
     detailImage: `${import.meta.env.BASE_URL}book-home.png`,
     github: "https://github.com/ivybot4/book-recommendation",
@@ -85,4 +89,89 @@ export const projects = [
       //},
     ],
   },
+  {
+    id: "world-model",
+    title: "World Model",
+    tagline: "World model from scratch",
+    categories: ["from-scratch"],
+    image: `${import.meta.env.BASE_URL}projects/world-model.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "on-device-speech-to-text",
+    title: "On-device Speech to Text",
+    tagline: "Fine-tuned and quantized Whisper model for Hinglish (Hindi + English) speech to text",
+    categories: ["on-device", "inference", "fine-tuning"],
+    image: `${import.meta.env.BASE_URL}projects/audio-device.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "aviation-vlm",
+    title: "Aviation-VLM",
+    tagline: "Fine-tuning a VLM to read FAA sectional charts",
+    categories: ["ai-applications", "fine-tuning"],
+    image: `${import.meta.env.BASE_URL}projects/aviation-llm.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "mini-vllm",
+    title: "Mini vLLM from Scratch",
+    tagline: "LLM inference engine with paged KV cache and continuous batching",
+    categories: ["inference", "from-scratch"],
+    image: `${import.meta.env.BASE_URL}projects/inference-eng.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "multimodal-model",
+    title: "Multimodal Model",
+    tagline: "Multimodal vision-language model (PaliGemma) from scratch",
+    categories: ["from-scratch"],
+    image: `${import.meta.env.BASE_URL}projects/multimodal.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "adam-optimizer",
+    title: "Adam Optimizer",
+    tagline: "Different optimizers implemented from scratch",
+    categories: ["from-scratch"],
+    image: `${import.meta.env.BASE_URL}projects/adam-optimizer.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
+  {
+    id: "wordle",
+    title: "Wordle",
+    tagline: "Wordle in JavaScript and React",
+    categories: ["full-stack"],
+    image: `${import.meta.env.BASE_URL}projects/wordle.png`,
+    github: "",
+    demo: "",
+    readmore: "",
+  },
 ];
+
+// Filter buttons above the Projects grid, in this order. A project can be in
+// several categories; a filter with no projects in it is hidden automatically.
+export const projectFilters = [
+  { id: "ai-applications", label: "AI Applications" },
+  { id: "inference", label: "Inference" },
+  { id: "on-device", label: "On-Device" },
+  { id: "fine-tuning", label: "Fine-Tuning" },
+  { id: "from-scratch", label: "From Scratch" },
+  { id: "full-stack", label: "Full-Stack" },
+];
+
+// Only projects with a write-up get a detail page (and a Details button).
+export const hasDetailPage = (project) =>
+  Boolean(project.detailIntro || project.homeDescription || project.writeup?.length);
