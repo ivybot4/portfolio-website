@@ -10,7 +10,7 @@ export const domains = [
     alt: "Agentic Systems: tools, MCP, multi-agent, eval harness, guardrails, RAG, prompt engineering",
     title: "Agentic Systems",
     headline: "Production AI Agents for Freight Bidding, Built and Evaluated End to End",
-    tags: ["AWS Bedrock AgentCore", "Strands Agents SDK", "Claude Sonnet", "MCP", "RAG", "Evals"],
+    tags: ["LangGraph", "LangChain", "MCP", "RAG", "Evals"],
     Content: () => (
       <>
         <Lead>

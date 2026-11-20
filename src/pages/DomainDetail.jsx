@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { findDomain } from "../data/domains";
-import { Section, SubSection, SubHeading, DomainActions, BUTTON, SANS } from "../components/editorial";
+import { Section, SubSection, SubHeading, DomainActions, Lead, Stats, Markdown, BUTTON, SANS } from "../components/editorial";
 
 // The site uses a hash router, so "#topic-1" links would change the route.
 // Scroll with JavaScript instead.
@@ -80,7 +80,7 @@ export default function DomainDetail() {
         <Link to="/domains" className={BUTTON}>
           Go Back
         </Link>
-        <h1 className="mt-12 text-[clamp(32px,4.2vw,52px)] font-bold">Domain not found</h1>
+        <h1 className="mt-12 text-[clamp(30px,4vw,50px)] font-bold">Domain not found</h1>
       </main>
     );
   }
@@ -103,22 +103,24 @@ export default function DomainDetail() {
 
         <article className="min-w-0">
           <p className="mb-4 text-[12px] font-medium uppercase tracking-[0.12em] text-[#6d6a63]">{domain.title}</p>
-          <h1 className="mb-6 text-[clamp(32px,4.2vw,52px)] font-bold leading-[1.08] tracking-[-0.01em] text-[#141414]">
+          <h1 className="mb-6 text-[clamp(30px,4vw,50px)] font-bold leading-[1.08] tracking-[-0.01em] text-[#141414]">
             {domain.headline}
           </h1>
           <div className="mb-7 h-[1.5px] w-12 bg-[#141414]" />
 
           <SubHeading items={domain.tags} />
-          <DomainActions githubUrl={domain.githubUrl} tryUrl={domain.tryUrl} />
+          <DomainActions githubUrl={domain.github} tryUrl={domain.try} />
 
           <div className="mt-12">
-            <domain.Intro />
+            {domain.introHtml && <Lead html={domain.introHtml} />}
+            {domain.stats.length > 0 && <Stats items={domain.stats} />}
 
             {domain.topics.map((topic) => (
               <Section key={topic.id} id={topic.id} title={topic.title}>
+                {topic.html && <Markdown html={topic.html} />}
                 {topic.subtopics.map((sub) => (
                   <SubSection key={sub.id} id={sub.id} title={sub.title}>
-                    <sub.Body />
+                    <Markdown html={sub.html} />
                   </SubSection>
                 ))}
               </Section>

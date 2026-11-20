@@ -7,11 +7,23 @@ const SANS = "[font-family:'Inter',system-ui,-apple-system,sans-serif]";
 const BUTTON =
   "inline-block border border-[#222222] bg-white px-4 py-2 text-[11px] font-medium uppercase tracking-[0.05em] text-[#141414] transition hover:bg-[#222222] hover:text-white";
 
-export function Lead({ children }) {
+// Intro text (everything before the first # heading in the .md file).
+export function Lead({ html }) {
   return (
-    <p className={`${SERIF} mb-10 text-[clamp(19px,1.8vw,22px)] leading-[1.55] text-[#242424]`}>
-      {children}
-    </p>
+    <div
+      className={`${SERIF} domain-prose mb-10 text-[clamp(19px,1.8vw,22px)] leading-[1.55] text-[#242424]`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
+// Body text from the .md file; styles live under .domain-prose in index.css.
+export function Markdown({ html }) {
+  return (
+    <div
+      className={`${SANS} domain-prose text-[16px] leading-[1.75] text-[#242424]`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
@@ -66,67 +78,12 @@ export function DomainActions({ githubUrl, tryUrl }) {
   );
 }
 
-export function P({ children }) {
-  return (
-    <p className={`${SANS} text-[16px] font-normal leading-[1.75] text-[#242424]`}>{children}</p>
-  );
-}
-
-export function A({ href, children }) {
-  const external = /^https?:\/\//.test(href);
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      className="underline decoration-1 underline-offset-[3px] transition-colors hover:text-[#8c231f]"
-    >
-      {children}
-    </a>
-  );
-}
-
-export function Columns({ count = 2, children }) {
-  const cols = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3" }[count] ?? "sm:grid-cols-2";
-  return <div className={`grid grid-cols-1 gap-6 ${cols}`}>{children}</div>;
-}
-
-const TONES = {
-  note: "border-[#222222] bg-white",
-  success: "border-[#2f5d3a] bg-[#f3f8f3]",
-};
-
-export function Callout({ title, tone = "note", children }) {
-  return (
-    <aside className={`my-8 border px-5 py-4 ${TONES[tone] ?? TONES.note}`}>
-      {title && (
-        <p className={`${SANS} mb-2 text-[12px] font-medium uppercase tracking-[0.12em] text-[#6d6a63]`}>
-          {title}
-        </p>
-      )}
-      <div className={`${SANS} text-[16px] leading-[1.75] text-[#242424]`}>{children}</div>
-    </aside>
-  );
-}
-
-export function List({ items, ordered = false }) {
-  const Tag = ordered ? "ol" : "ul";
-  return (
-    <Tag
-      className={`${SANS} space-y-2 pl-6 text-[16px] leading-[1.75] text-[#242424] ${
-        ordered ? "list-decimal" : "list-disc"
-      }`}
-    >
-      {items.map((item, i) => (
-        <li key={i}>{item}</li>
-      ))}
-    </Tag>
-  );
-}
-
 export function Stats({ items }) {
   return (
-    <div className="my-8 grid grid-cols-1 border-y border-[#222222] sm:grid-cols-3">
+    <div
+      className="my-8 grid grid-cols-1 border-y border-[#222222] sm:[grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
+      style={{ "--cols": items.length }}
+    >
       {items.map((stat) => (
         <div
           key={stat.label}

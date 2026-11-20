@@ -9,3 +9,59 @@ body {
   background: #e8d8f0;
   color: #111;
 }
+
+/* Text written in src/content/domains/*.md */
+.domain-prose > * + * {
+  margin-top: 1.1em;
+}
+.domain-prose h3,
+.domain-prose h4 {
+  margin-top: 1.6em;
+  font-weight: 600;
+  color: #141414;
+}
+.domain-prose h3 { font-size: 1.1em; }
+.domain-prose ul { list-style: disc; padding-left: 1.5em; }
+.domain-prose ol { list-style: decimal; padding-left: 1.5em; }
+.domain-prose li + li { margin-top: 0.35em; }
+.domain-prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+.domain-prose a:hover { color: #8c231f; }
+.domain-prose strong { font-weight: 600; color: #141414; }
+.domain-prose em { font-style: italic; }
+.domain-prose blockquote {
+  border-left: 2px solid #141414;
+  padding-left: 1.25em;
+  font-style: italic;
+}
+.domain-prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1.5px solid #181818;
+  background: #fff;
+}
+.domain-prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  background: #efe9ee;
+  padding: 0.1em 0.35em;
+}
+.domain-prose pre {
+  overflow-x: auto;
+  background: #1c1b19;
+  color: #ece8e0;
+  padding: 1.1em 1.25em;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.domain-prose pre code { background: none; padding: 0; }
+.domain-prose table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+.domain-prose th,
+.domain-prose td { border-bottom: 1px solid #22222233; padding: 0.5em 0.6em; text-align: left; }
+.domain-prose th { font-weight: 600; }
+.domain-prose hr { border: 0; border-top: 1px solid #22222233; }
