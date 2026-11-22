@@ -61,8 +61,8 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },*/
-  /*{
+  },
+  {
     id: "mini-vllm",
     title: "Mini vLLM from Scratch",
     tagline: "LLM inference engine with paged KV cache and continuous batching",
@@ -71,8 +71,8 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },*/
-  /*{
+  },
+  {
     id: "multimodal-model",
     title: "Multimodal Model",
     tagline: "Multimodal vision-language model (PaliGemma) from scratch",
@@ -81,8 +81,8 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },*/
-  /*{
+  },
+  {
     id: "adam-optimizer",
     title: "Adam Optimizer",
     tagline: "Different optimizers implemented from scratch",
