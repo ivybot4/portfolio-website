@@ -118,9 +118,13 @@ export default function Home() {
       </Section>
 
       {/* PROJECTS */}
-      <div id="projects" className="scroll-mt-12">
+      <div
+        id="projects"
+        className="scroll-mt-12 bg-cover bg-center"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}background/projects-bg.jpg)` }}
+      >
         <Section title="Projects">
-          <p className="-mt-2 mb-5 text-center text-xs uppercase text-neutral-800">
+          <p className="-mt-5 mb-5 text-center text-xs uppercase text-neutral-800">
             Click on a topic to view related projects
           </p>
 
@@ -170,11 +174,7 @@ export default function Home() {
       </div>
 
       {/* DOMAINS */}
-      <div
-        id="domains"
-        className="scroll-mt-12 bg-cover bg-center"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}background/projects-bg.jpg)` }}
-      >
+      <div id="domains" className="scroll-mt-12">
         <Section title="Domains">
           <div className="mx-auto -mt-5 mb-8 max-w-2xl text-center">
             <p className="text-lg font-semibold text-neutral-900 sm:text-xl">

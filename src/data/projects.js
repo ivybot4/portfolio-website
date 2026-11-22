@@ -52,7 +52,7 @@ const cards = [
     demo: "",
     readmore: "",
   },
-  /*{
+  {
     id: "world-model",
     title: "World Model",
     tagline: "World model from scratch",
@@ -91,7 +91,7 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },*/
+  },
 ];
 
 // `page` holds the parsed .md write-up: { stack, introHtml, topics }.
