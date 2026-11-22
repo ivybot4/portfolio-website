@@ -1,7 +1,7 @@
 // Domains shown on the homepage and at /domains/:domainId.
 // The write-up for each page lives in src/content/domains/<id>.md.
 // This file only holds what the homepage card needs.
-import { parseDomainMarkdown } from "../lib/parseDomainMarkdown";
+import { parseDomainMarkdown } from "../lib/parseMarkdown";
 
 const files = import.meta.glob("../content/domains/*.md", { query: "?raw", import: "default", eager: true });
 

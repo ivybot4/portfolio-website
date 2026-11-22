@@ -13,7 +13,7 @@ body {
   color: #111;
 }
 
-/* Text written in src/content/domains/*.md */
+/* Text written in src/content/domains/*.md and src/content/projects/*.md */
 .domain-prose > * + * {
   margin-top: 1.1em;
 }
@@ -47,6 +47,21 @@ body {
   height: auto;
   border: 1.5px solid #181818;
   background: #fff;
+}
+.domain-prose figure {
+  margin-block: 2em;
+}
+.domain-prose figure img {
+  margin-inline: auto;
+}
+.domain-prose figcaption {
+  margin-top: 0.75em;
+  text-align: center;
+  font-size: 0.7em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6d6a63;
 }
 .domain-prose code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

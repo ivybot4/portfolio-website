@@ -6,7 +6,7 @@ import ExperienceCarousel from "../components/ExperienceCarousel";
 import SectionNav from "../components/SectionNav";
 import { experience } from "../data/experience";
 import { education } from "../data/education";
-import { projects, projectFilters } from "../data/projects";
+import { projects, projectFilters, projectSubFilters } from "../data/projects";
 import { domains } from "../data/domains";
 import { contactLinks } from "../data/contact";
 
@@ -29,17 +29,39 @@ const navItems = [
   { id: "contact", label: "Contact" },
 ];
 
+const inCategory = (id) => (project) => project.categories?.includes(id);
+
 // Only offer filters that match at least one project.
 const filters = [
   { id: "all", label: "All" },
-  ...projectFilters.filter((f) => projects.some((p) => p.categories?.includes(f.id))),
+  ...projectFilters.filter((f) => projects.some(inCategory(f.id))),
 ];
+
+const FILTER_BUTTON =
+  "border border-black bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-950 transition hover:bg-black hover:text-white aria-pressed:bg-black aria-pressed:text-white";
+const SUB_FILTER_BUTTON =
+  "border border-neutral-400 bg-neutral-100 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em] text-neutral-600 transition hover:border-neutral-600 hover:bg-neutral-600 hover:text-white aria-pressed:border-neutral-600 aria-pressed:bg-neutral-600 aria-pressed:text-white";
 
 export default function Home() {
   const location = useLocation();
   const [projectFilter, setProjectFilter] = useState("all");
-  const shownProjects =
-    projectFilter === "all" ? projects : projects.filter((p) => p.categories?.includes(projectFilter));
+  const [projectSubFilter, setProjectSubFilter] = useState(null);
+
+  // Grey sub-filters narrow the selected white filter, and only the ones that
+  // match a project under it are offered.
+  const filteredProjects =
+    projectFilter === "all" ? projects : projects.filter(inCategory(projectFilter));
+  const subFilters = projectSubFilters.filter((f) => filteredProjects.some(inCategory(f.id)));
+  const shownProjects = projectSubFilter
+    ? filteredProjects.filter(inCategory(projectSubFilter))
+    : filteredProjects;
+
+  const selectFilter = (id) => {
+    setProjectFilter(id);
+    setProjectSubFilter(null);
+  };
+  // Clicking the active sub-filter again clears it.
+  const toggleSubFilter = (id) => setProjectSubFilter((current) => (current === id ? null : id));
 
   // Project pages link back here with { scrollTo: "domains" }.
   useEffect(() => {
@@ -155,18 +177,36 @@ export default function Home() {
             Click on a topic to view related projects
           </p>
 
-          <div role="group" aria-label="Filter projects" className="mb-10 flex flex-wrap justify-center gap-2">
-            {filters.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setProjectFilter(f.id)}
-                aria-pressed={projectFilter === f.id}
-                className="border border-black bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-950 transition hover:bg-black hover:text-white aria-pressed:bg-black aria-pressed:text-white"
-              >
-                {f.label}
-              </button>
-            ))}
+          <div className="mb-10 flex flex-col items-center gap-3">
+            <div role="group" aria-label="Filter projects" className="flex flex-wrap justify-center gap-2">
+              {filters.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => selectFilter(f.id)}
+                  aria-pressed={projectFilter === f.id}
+                  className={FILTER_BUTTON}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            {subFilters.length > 0 && (
+              <div role="group" aria-label="Narrow projects" className="flex flex-wrap justify-center gap-2">
+                {subFilters.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => toggleSubFilter(f.id)}
+                    aria-pressed={projectSubFilter === f.id}
+                    className={SUB_FILTER_BUTTON}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <p className="sr-only" aria-live="polite">

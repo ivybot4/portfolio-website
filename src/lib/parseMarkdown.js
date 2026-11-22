@@ -1,4 +1,18 @@
-import { marked } from "marked";
+import { Marked } from "marked";
+
+// An image on a line of its own becomes a figure, and its "title" its caption:
+//   ![Alt text](/projects/on-device/app.png "Caption shown under the image")
+const marked = new Marked({
+  renderer: {
+    paragraph({ tokens }) {
+      const [image] = tokens;
+      if (tokens.length !== 1 || image.type !== "image") return false; // default rendering
+
+      const caption = image.title ? `<figcaption>${escapeHtml(image.title)}</figcaption>` : "";
+      return `<figure><img src="${escapeHtml(image.href)}" alt="${escapeHtml(image.text)}" loading="lazy">${caption}</figure>\n`;
+    },
+  },
+});
 
 // Turns a domain .md file into { headline, tags, github, try, stats, introHtml, topics }.
 //
@@ -14,6 +28,41 @@ import { marked } from "marked";
 //   ## Subtopic              <- sidebar subtopic + subheading
 //   Text, lists, links, images...
 export function parseDomainMarkdown(source) {
+  const { meta, introHtml, topics } = parseMarkdownPage(source);
+
+  return {
+    // A blank `key:` line parses as an empty list, so only accept text here.
+    headline: text(meta.headline),
+    tags: splitList(meta.tags),
+    github: text(meta.github),
+    try: text(meta.try),
+    stats: (Array.isArray(meta.stats) ? meta.stats : []).map((line) => {
+      const [value, ...label] = line.split("|");
+      return { value: value.trim(), label: label.join("|").trim() };
+    }),
+    introHtml,
+    topics,
+  };
+}
+
+// Turns a project .md file into { image, stack, introHtml, topics }.
+//
+//   ---                      <- settings block (optional)
+//   image: /projects/x.png   <- big image at the top (leave empty for none)
+//   stack: Python, PyTorch   <- shown as PYTHON · PYTORCH under the intro
+//   ---
+//   Text before a heading    <- shown at the top of the write-up
+//   # Section                <- section heading
+//   ## Subsection            <- subheading
+//   Text, lists, links, images...
+export function parseProjectMarkdown(source) {
+  const { meta, introHtml, topics } = parseMarkdownPage(source);
+  return { image: text(meta.image), stack: splitList(meta.stack), introHtml, topics };
+}
+
+// Shared by both: splits the settings block from the body, and the body into
+// the intro (before the first heading) and # / ## sections rendered to HTML.
+function parseMarkdownPage(source) {
   const { meta, body } = splitFrontmatter(source);
   const tokens = marked.lexer(body);
   const render = (list) => renderTokens(list, tokens.links);
@@ -43,15 +92,7 @@ export function parseDomainMarkdown(source) {
   }
 
   return {
-    // A blank `key:` line parses as an empty list, so only accept text here.
-    headline: text(meta.headline),
-    tags: splitList(meta.tags),
-    github: text(meta.github),
-    try: text(meta.try),
-    stats: (Array.isArray(meta.stats) ? meta.stats : []).map((line) => {
-      const [value, ...label] = line.split("|");
-      return { value: value.trim(), label: label.join("|").trim() };
-    }),
+    meta,
     introHtml: render(intro),
     topics: topics.map((t) => ({
       id: t.id,
@@ -94,6 +135,10 @@ function splitFrontmatter(source) {
     }
   }
   return { meta, body: source.slice(match[0].length) };
+}
+
+function escapeHtml(value) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 function text(value) {
