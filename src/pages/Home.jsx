@@ -22,10 +22,10 @@ function ScrollHint({ className = "mt-8" }) {
 // Pinned bar at the top; ids match the sections below.
 const navItems = [
   { id: "home", label: "Home" },
-  { id: "domains", label: "Domains" },
   { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
   { id: "projects", label: "Projects" },
+  { id: "domains", label: "Domains" },
+  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -112,63 +112,10 @@ export default function Home() {
         <ScrollHint />
       </section>
 
-      {/* DOMAINS */}
-      <div
-        id="domains"
-        className="scroll-mt-12 bg-cover bg-center"
-        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}background/projects-bg.jpg)` }}
-      >
-        <Section title="Domains">
-          <div className="mx-auto -mt-5 mb-8 max-w-2xl text-center">
-            <p className="text-lg font-semibold text-neutral-900 sm:text-xl">
-              What you can hand me end to end, from prototype to production.
-            </p>
-            <p className="mt-2 text-sm leading-6 text-neutral-800 sm:text-base">
-              These are the systems I know inside out. Click a domain to read about it and the practices I follow. Read the work I've done behind it, the projects (in prod) and how they were built.
-            </p>
-          </div>
-          <div className="mx-auto grid w-full max-w-[1000px] grid-cols-1 justify-items-center gap-y-8 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10">
-            {domains.map((domain) => (
-              <Link
-                key={domain.id}
-                to={`/domains/${domain.id}`}
-                aria-label={`Read about ${domain.title}`}
-                className="group block w-full max-w-[300px] aspect-square overflow-hidden border-[2px] border-black bg-white"
-              >
-                <img
-                  src={`${import.meta.env.BASE_URL}domains/${domain.image}`}
-                  alt={domain.alt}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </Link>
-            ))}
-          </div>
-        </Section>
-      </div>
-
 {/* PROFESSIONAL EXPERIENCE */}
       <Section id="experience" title="Professional Experience">
         <ExperienceCarousel items={experience} />
       </Section>
-
-      {/* EDUCATION */}
-<Section id="education" title="Education">
-  <div className="mx-auto grid w-full max-w-5xl gap-6 md:grid-cols-2">
-    {education.map((item) => (
-      // Fixed box size (500x173 on desktop); the card image scales inside it without cropping.
-      <article
-        key={`${item.degree}-${item.school}`}
-        className="h-[197px] overflow-hidden border border-black bg-white md:h-[173px]"
-      >
-        <img
-          src={`${import.meta.env.BASE_URL}education/${item.card}`}
-          alt={`${item.degree}, ${item.school}. ${item.details}`}
-          className="h-full w-full object-contain"
-        />
-      </article>
-    ))}
-  </div>
-</Section>
 
       {/* PROJECTS */}
       <div id="projects" className="scroll-mt-12">
@@ -221,6 +168,59 @@ export default function Home() {
           </div>
         </Section>
       </div>
+
+      {/* DOMAINS */}
+      <div
+        id="domains"
+        className="scroll-mt-12 bg-cover bg-center"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}background/projects-bg.jpg)` }}
+      >
+        <Section title="Domains">
+          <div className="mx-auto -mt-5 mb-8 max-w-2xl text-center">
+            <p className="text-lg font-semibold text-neutral-900 sm:text-xl">
+              What you can hand me end to end, from prototype to production.
+            </p>
+            <p className="mt-2 text-sm leading-6 text-neutral-800 sm:text-base">
+              These are the systems I know inside out. Click a domain to read about it and the practices I follow. Read the work I've done behind it, the projects (in prod) and how they were built.
+            </p>
+          </div>
+          <div className="mx-auto grid w-full max-w-[1000px] grid-cols-1 justify-items-center gap-y-8 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10">
+            {domains.map((domain) => (
+              <Link
+                key={domain.id}
+                to={`/domains/${domain.id}`}
+                aria-label={`Read about ${domain.title}`}
+                className="group block w-full max-w-[300px] aspect-square overflow-hidden border-[2px] border-black bg-white"
+              >
+                <img
+                  src={`${import.meta.env.BASE_URL}domains/${domain.image}`}
+                  alt={domain.alt}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </Link>
+            ))}
+          </div>
+        </Section>
+      </div>
+
+      {/* EDUCATION */}
+<Section id="education" title="Education">
+  <div className="mx-auto grid w-full max-w-5xl gap-6 md:grid-cols-2">
+    {education.map((item) => (
+      // Fixed box size (500x173 on desktop); the card image scales inside it without cropping.
+      <article
+        key={`${item.degree}-${item.school}`}
+        className="h-[197px] overflow-hidden border border-black bg-white md:h-[173px]"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}education/${item.card}`}
+          alt={`${item.degree}, ${item.school}. ${item.details}`}
+          className="h-full w-full object-contain"
+        />
+      </article>
+    ))}
+  </div>
+</Section>
       {/* CONTACT */}
       <Section id="contact" title="Contact Me">
         {/* Same look as the site's buttons, larger: 6 across on desktop, 3 on tablets, 2 on phones. */}
