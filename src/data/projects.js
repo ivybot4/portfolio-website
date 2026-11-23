@@ -24,7 +24,7 @@ const cards = [
   },
   {
     id: "on-device-speech-to-text",
-    title: "On-device Speech to Text",
+    title: "On-Phone Accessbility: Bilingual Captions and Distress Sound Alerts",
     tagline: "Fine-tuned and quantized Whisper model for Hinglish (Hindi + English) speech to text",
     categories: ["on-device", "inference", "audio", "python"],
     image: `${import.meta.env.BASE_URL}projects/audio-device.png`,

@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { projects, hasDetailPage } from "../data/projects";
+import OnThisPage from "../components/OnThisPage";
 
 const BUTTON =
   "inline-block border border-black bg-white px-3 py-1.5 text-[11px] uppercase tracking-wide transition hover:bg-black hover:text-white";
@@ -69,9 +70,12 @@ export default function ProjectDetail() {
     { label: "Read More", href: project.readmore },
   ].filter((link) => link.href);
 
+  // Contents sidebar, as on the domain pages, whenever the write-up has headings.
+  const hasContents = topics.length > 0;
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#F8F2FA] px-4 py-6 font-body text-neutral-950 sm:px-6">
-      <div className="mx-auto w-full max-w-[900px]">
+      <div className={`mx-auto w-full ${hasContents ? "max-w-[1060px]" : "max-w-[900px]"}`}>
         <BackLink />
 
         {/* HEADER: title, stack and links, kept compact so the write-up starts above the fold */}
@@ -93,45 +97,61 @@ export default function ProjectDetail() {
           )}
         </header>
 
-        {/* Only when the .md file sets `image:` */}
-        {image && (
-          <div className="mt-6 border-[2px] border-black bg-white">
-            <img src={image} alt={project.title} className="block h-auto w-full object-contain" />
-          </div>
-        )}
+        <hr className="mt-6 border-neutral-400" />
 
-        {/* WRITEUP */}
-        {(introHtml || topics.length > 0) && (
-          <>
-            <hr className="mt-6 border-neutral-400" />
+        {/* Sidebar and write-up start together, under the title and link buttons */}
+        <div className={hasContents ? "mt-6 grid gap-x-14 lg:grid-cols-[220px_minmax(0,1fr)]" : "mt-6"}>
+          {/* Sidebar: sticky on wide screens, a plain list above the write-up on smaller ones */}
+          {hasContents && (
+            <aside className="mb-8 lg:mb-0">
+              <div className="lg:sticky lg:top-8 lg:max-h-[calc(100dvh-4rem)] lg:overflow-y-auto">
+                <OnThisPage topics={topics} />
+              </div>
+            </aside>
+          )}
 
-            <article className="mx-auto mt-6 max-w-[720px]">
-              <Prose html={introHtml} />
+          <div className="min-w-0">
+            {/* Only when the .md file sets `image:` */}
+            {image && (
+              <div className="border-[2px] border-black bg-white">
+                <img src={image} alt={project.title} className="block h-auto w-full object-contain" />
+              </div>
+            )}
 
-              {topics.map((topic) => (
-                <section key={topic.id} className="mt-8 first:mt-0">
-                  <h2 className="text-xl font-bold">{topic.title}</h2>
-                  <Prose html={topic.html} />
+            {/* WRITEUP: section ids match the sidebar links; scroll-mt keeps headings clear of the top edge */}
+            {(introHtml || hasContents) && (
+              <>
+                {image && <hr className="mt-6 border-neutral-400" />}
 
-                  {topic.subtopics.map((sub) => (
-                    <section key={sub.id} className="mt-5">
-                      <h3 className="text-lg font-semibold">{sub.title}</h3>
-                      <Prose html={sub.html} />
+                <article className={`mx-auto max-w-[720px] ${image ? "mt-6" : ""}`}>
+                  <Prose html={introHtml} />
+
+                  {topics.map((topic) => (
+                    <section key={topic.id} id={topic.id} className="mt-8 scroll-mt-8 first:mt-0">
+                      <h2 className="text-xl font-bold">{topic.title}</h2>
+                      <Prose html={topic.html} />
+
+                      {topic.subtopics.map((sub) => (
+                        <section key={sub.id} id={sub.id} className="mt-5 scroll-mt-8">
+                          <h3 className="text-lg font-semibold">{sub.title}</h3>
+                          <Prose html={sub.html} />
+                        </section>
+                      ))}
                     </section>
                   ))}
-                </section>
-              ))}
-            </article>
-          </>
-        )}
+                </article>
+              </>
+            )}
 
-        {/* PREV / NEXT */}
-        <hr className="mt-10 border-neutral-400" />
+            {/* PREV / NEXT */}
+            <hr className="mt-10 border-neutral-400" />
 
-        <nav className="mt-5 flex items-start justify-between gap-6 text-xs">
-          <PagerLink project={previous} label="← Previous" />
-          <PagerLink project={next} label="Next →" alignRight />
-        </nav>
+            <nav className="mt-5 flex items-start justify-between gap-6 text-xs">
+              <PagerLink project={previous} label="← Previous" />
+              <PagerLink project={next} label="Next →" alignRight />
+            </nav>
+          </div>
+        </div>
       </div>
     </main>
   );
