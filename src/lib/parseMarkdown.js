@@ -14,37 +14,6 @@ const marked = new Marked({
   },
 });
 
-// Turns a domain .md file into { headline, tags, github, try, stats, introHtml, topics }.
-//
-//   ---                      <- settings block (optional)
-//   headline: ...
-//   tags: A, B, C
-//   stats:
-//     - 65% | Less manual bid processing
-//   ---
-//   Intro paragraph(s)       <- shown in large serif text under the title
-//   # Topic                  <- sidebar topic + section heading
-//   Optional topic text
-//   ## Subtopic              <- sidebar subtopic + subheading
-//   Text, lists, links, images...
-export function parseDomainMarkdown(source) {
-  const { meta, introHtml, topics } = parseMarkdownPage(source);
-
-  return {
-    // A blank `key:` line parses as an empty list, so only accept text here.
-    headline: text(meta.headline),
-    tags: splitList(meta.tags),
-    github: text(meta.github),
-    try: text(meta.try),
-    stats: (Array.isArray(meta.stats) ? meta.stats : []).map((line) => {
-      const [value, ...label] = line.split("|");
-      return { value: value.trim(), label: label.join("|").trim() };
-    }),
-    introHtml,
-    topics,
-  };
-}
-
 // Turns a project .md file into { image, stack, introHtml, topics }.
 //
 //   ---                      <- settings block (optional)
@@ -60,7 +29,7 @@ export function parseProjectMarkdown(source) {
   return { image: text(meta.image), stack: splitList(meta.stack), introHtml, topics };
 }
 
-// Shared by both: splits the settings block from the body, and the body into
+// Splits the settings block from the body, and the body into
 // the intro (before the first heading) and # / ## sections rendered to HTML.
 function parseMarkdownPage(source) {
   const { meta, body } = splitFrontmatter(source);

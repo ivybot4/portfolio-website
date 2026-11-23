@@ -8,7 +8,6 @@ import {
 import { useEffect } from "react";
 import Home from "./pages/Home";
 import ProjectDetail from "./pages/projectDetail";
-import DomainDetail from "./pages/DomainDetail";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -32,9 +31,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />
-        <Route path="/domains/:domainId" element={<DomainDetail />} />
-        {/* /domains has no page of its own: go to the Domains section on Home. */}
-        <Route path="/domains" element={<Navigate to="/" state={{ scrollTo: "domains" }} replace />} />
         {/* Unknown URLs fall back to Home instead of a blank page. */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

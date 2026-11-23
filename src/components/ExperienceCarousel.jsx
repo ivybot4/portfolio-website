@@ -153,7 +153,7 @@ export default function ExperienceCarousel({ items }) {
               style={{ width: CARD_WIDTH }}
               className="group relative shrink-0 cursor-pointer snap-start overflow-hidden border-2 border-black bg-white"
             >
-              {/* Same hover zoom as the domain and project cards: the content grows inside a fixed border. */}
+              {/* Same hover zoom as the project cards: the content grows inside a fixed border. */}
               <div className="flex h-full flex-col p-4 transition-transform duration-500 motion-safe:group-hover:scale-[1.03] sm:p-5">
                 {/* Fixed-height slot so text lines up across logos and plain names. */}
                 <div className="flex h-14 items-center justify-center">

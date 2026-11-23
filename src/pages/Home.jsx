@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Section from "../components/Section";
 import ProjectCard from "../components/ProjectCard";
 import ExperienceCarousel from "../components/ExperienceCarousel";
+import CategoryFilters from "../components/CategoryFilters";
+import { useCategoryFilters } from "../hooks/useCategoryFilters";
 import SectionNav from "../components/SectionNav";
 import { experience } from "../data/experience";
 import { education } from "../data/education";
 import { projects, projectFilters, projectSubFilters } from "../data/projects";
-import { domains } from "../data/domains";
 import { contactLinks } from "../data/contact";
 
 function ScrollHint({ className = "mt-8" }) {
@@ -24,46 +25,16 @@ const navItems = [
   { id: "home", label: "Home" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
-  { id: "domains", label: "Domains" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 
-const inCategory = (id) => (project) => project.categories?.includes(id);
-
-// Only offer filters that match at least one project.
-const filters = [
-  { id: "all", label: "All" },
-  ...projectFilters.filter((f) => projects.some(inCategory(f.id))),
-];
-
-const FILTER_BUTTON =
-  "border border-black bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-950 transition hover:bg-black hover:text-white aria-pressed:bg-black aria-pressed:text-white";
-const SUB_FILTER_BUTTON =
-  "border border-neutral-400 bg-neutral-100 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em] text-neutral-600 transition hover:border-neutral-600 hover:bg-neutral-600 hover:text-white aria-pressed:border-neutral-600 aria-pressed:bg-neutral-600 aria-pressed:text-white";
-
 export default function Home() {
   const location = useLocation();
-  const [projectFilter, setProjectFilter] = useState("all");
-  const [projectSubFilter, setProjectSubFilter] = useState(null);
+  const projectList = useCategoryFilters(projects, projectFilters, projectSubFilters);
+  const shownProjects = projectList.shown;
 
-  // Grey sub-filters narrow the selected white filter, and only the ones that
-  // match a project under it are offered.
-  const filteredProjects =
-    projectFilter === "all" ? projects : projects.filter(inCategory(projectFilter));
-  const subFilters = projectSubFilters.filter((f) => filteredProjects.some(inCategory(f.id)));
-  const shownProjects = projectSubFilter
-    ? filteredProjects.filter(inCategory(projectSubFilter))
-    : filteredProjects;
-
-  const selectFilter = (id) => {
-    setProjectFilter(id);
-    setProjectSubFilter(null);
-  };
-  // Clicking the active sub-filter again clears it.
-  const toggleSubFilter = (id) => setProjectSubFilter((current) => (current === id ? null : id));
-
-  // Project pages link back here with { scrollTo: "domains" }.
+  // Project pages link back here with { scrollTo: "projects" }.
   useEffect(() => {
     if (location.state?.scrollTo) {
       document.getElementById(location.state.scrollTo)?.scrollIntoView();
@@ -128,76 +99,12 @@ export default function Home() {
             Click on a topic to view related projects
           </p>
 
-          <div className="mb-10 flex flex-col items-center gap-3">
-            <div role="group" aria-label="Filter projects" className="flex flex-wrap justify-center gap-2">
-              {filters.map((f) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => selectFilter(f.id)}
-                  aria-pressed={projectFilter === f.id}
-                  className={FILTER_BUTTON}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-
-            {subFilters.length > 0 && (
-              <div role="group" aria-label="Narrow projects" className="flex flex-wrap justify-center gap-2">
-                {subFilters.map((f) => (
-                  <button
-                    key={f.id}
-                    type="button"
-                    onClick={() => toggleSubFilter(f.id)}
-                    aria-pressed={projectSubFilter === f.id}
-                    className={SUB_FILTER_BUTTON}
-                  >
-                    {f.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <p className="sr-only" aria-live="polite">
-            Showing {shownProjects.length} {shownProjects.length === 1 ? "project" : "projects"}
-          </p>
+          <CategoryFilters noun={["project", "projects"]} {...projectList.filterProps} />
 
           {/* At most 3 per row (3 x 300px + 2 x 32px = 964px; 4 never fit); a short last row is centred. */}
           <div className="mx-auto flex w-full max-w-[964px] flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-y-14">
             {shownProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </Section>
-      </div>
-
-      {/* DOMAINS */}
-      <div id="domains" className="scroll-mt-12">
-        <Section title="Domains">
-          <div className="mx-auto -mt-5 mb-8 max-w-2xl text-center">
-            <p className="text-lg font-semibold text-neutral-900 sm:text-xl">
-              What you can hand me end to end, from prototype to production.
-            </p>
-            <p className="mt-2 text-sm leading-6 text-neutral-800 sm:text-base">
-              These are the systems I know inside out. Click a domain to read about it and the practices I follow. Read the work I've done behind it, the projects (in prod) and how they were built.
-            </p>
-          </div>
-          <div className="mx-auto grid w-full max-w-[1000px] grid-cols-1 justify-items-center gap-y-8 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-10">
-            {domains.map((domain) => (
-              <Link
-                key={domain.id}
-                to={`/domains/${domain.id}`}
-                aria-label={`Read about ${domain.title}`}
-                className="group block w-full max-w-[300px] aspect-square overflow-hidden border-[2px] border-black bg-white"
-              >
-                <img
-                  src={`${import.meta.env.BASE_URL}domains/${domain.image}`}
-                  alt={domain.alt}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </Link>
             ))}
           </div>
         </Section>

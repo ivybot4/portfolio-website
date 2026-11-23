@@ -13,12 +13,12 @@ function BackLink() {
   );
 }
 
-// Text from the .md file; styles live under .domain-prose in index.css.
+// Text from the .md file; styles live under .prose-md in index.css.
 function Prose({ html }) {
   if (!html) return null;
   return (
     <div
-      className="domain-prose mt-2 text-base leading-7 text-neutral-800 sm:text-[17px]"
+      className="prose-md mt-2 text-base leading-7 text-neutral-800 sm:text-[17px]"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -70,7 +70,7 @@ export default function ProjectDetail() {
     { label: "Read More", href: project.readmore },
   ].filter((link) => link.href);
 
-  // Contents sidebar, as on the domain pages, whenever the write-up has headings.
+  // Contents sidebar whenever the write-up has headings.
   const hasContents = topics.length > 0;
 
   return (

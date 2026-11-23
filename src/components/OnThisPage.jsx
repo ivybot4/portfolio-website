@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-// "On this page" contents list for the domain and project detail pages.
+// "On this page" contents list for the project detail pages.
 // `topics` is the parsed .md structure: [{ id, title, subtopics: [{ id, title }] }].
 //
 // The site uses a hash router, so "#topic-1" links would change the route.

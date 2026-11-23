@@ -1,27 +1,8 @@
-// Projects shown on the homepage and at /projects/:id.
-// The write-up for each detail page lives in src/content/projects/<id>.md;
-// a project gets a detail page (and a Details button) only when that file exists.
-// This file only holds what the homepage card needs.
-//
-// categories: [] ids from projectFilters / projectSubFilters at the bottom of this file (drives the filter buttons)
-// tagline: the caption on the card image, read out by screen readers
-// image: the square card image on the homepage
-// github / demo: "" greys out that button on the card until a link is added
-// readmore: "" hides the Read More button
 import { parseProjectMarkdown } from "../lib/parseMarkdown";
 
 const files = import.meta.glob("../content/projects/*.md", { query: "?raw", import: "default", eager: true });
 
 const cards = [
-  {
-    id: "book-recommender",
-    title: "NoraBot: Book Recommendation",
-    tagline: "Semantic book recommender with two-tower candidate retrieval and LLM ranker",
-    categories: ["ai-engineering", "recommenders", "python"],
-    image: `${import.meta.env.BASE_URL}projects/book-recommendation.png`,
-    github: "https://github.com/ivybot4/book-recommendation",
-    demo: "",
-  },
   {
     id: "on-device-speech-to-text",
     title: "On-Phone Accessbility: Bilingual Captions and Distress Sound Alerts",
@@ -33,26 +14,26 @@ const cards = [
     readmore: "",
   },
   {
-    id: "aviation-vlm",
-    title: "Aviation-VLM",
-    tagline: "Fine-tuning a VLM to read FAA sectional charts",
-    categories: ["ai-engineering", "python", "multimodal"],
-    image: `${import.meta.env.BASE_URL}projects/aviation-llm.png`,
-    github: "https://github.com/ivybot4/finetuning-multimodal-aviation",
+    id: "book-recommender",
+    title: "NoraBot: Book Recommendation",
+    tagline: "Semantic book recommender with two-tower candidate retrieval and LLM ranker",
+    categories: ["ai-engineering", "recommenders", "python"],
+    image: `${import.meta.env.BASE_URL}projects/book-recommendation.png`,
+    github: "https://github.com/ivybot4/book-recommendation",
+    demo: "",
+  },
+  /*{
+    id: "mini-vllm",
+    title: "Mini vLLM from Scratch",
+    tagline: "LLM inference engine with paged KV cache and continuous batching",
+    categories: ["inference", "from-scratch", "python"],
+    image: `${import.meta.env.BASE_URL}projects/inference-eng.png`,
+    github: "",
     demo: "",
     readmore: "",
   },
-  {
-    id: "minesweeper",
-    title: "Minesweeper",
-    tagline: "Minesweeper game in Python with TKinter UI, OOPs and Algorithms",
-    categories: ["games", "python"],
-    image: `${import.meta.env.BASE_URL}projects/minesweeper.png`,
-    github: "https://github.com/ivybot4/minesweeper",
-    demo: "",
-    readmore: "",
-  },
-  {
+
+    {
     id: "world-model",
     title: "World Model",
     tagline: "World model from scratch",
@@ -62,13 +43,14 @@ const cards = [
     demo: "",
     readmore: "",
   },
+
   {
-    id: "mini-vllm",
-    title: "Mini vLLM from Scratch",
-    tagline: "LLM inference engine with paged KV cache and continuous batching",
-    categories: ["inference", "from-scratch", "python"],
-    image: `${import.meta.env.BASE_URL}projects/inference-eng.png`,
-    github: "",
+    id: "aviation-vlm",
+    title: "Aviation-VLM",
+    tagline: "Fine-tuning a VLM to read FAA sectional charts",
+    categories: ["ai-engineering", "python", "multimodal"],
+    image: `${import.meta.env.BASE_URL}projects/aviation-llm.png`,
+    github: "https://github.com/ivybot4/finetuning-multimodal-aviation",
     demo: "",
     readmore: "",
   },
@@ -92,6 +74,12 @@ const cards = [
     demo: "",
     readmore: "",
   },
+  
+  { something with LLM judge and AI Engineering}
+  an interactive platform to learn dsa by building games
+  like build minesweeper to learn bfs
+  
+  */
 ];
 
 // `page` holds the parsed .md write-up: { stack, introHtml, topics }.
