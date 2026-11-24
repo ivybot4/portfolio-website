@@ -1,5 +1,5 @@
 import {
-  HashRouter,
+  BrowserRouter,
   Routes,
   Route,
   Navigate,
@@ -25,7 +25,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
 
       <Routes>
@@ -34,6 +34,6 @@ export default function App() {
         {/* Unknown URLs fall back to Home instead of a blank page. */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

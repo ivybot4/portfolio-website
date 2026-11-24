@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 // "On this page" contents list for the project detail pages.
 // `topics` is the parsed .md structure: [{ id, title, subtopics: [{ id, title }] }].
 //
-// The site uses a hash router, so "#topic-1" links would change the route.
-// Scrolling is done in JavaScript instead.
+// Scrolling is done in JavaScript rather than with "#topic-1" links, so the URL
+// stays clean when someone copies it to share.
 
 const ACTIVE_LINE = 120; // px: a heading counts as "current" once its top passes this line
 

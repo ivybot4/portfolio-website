@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { hasVideoDemo } from "../data/projects";
+import { hasVideoDemo, demoVideoBox } from "../data/projects";
 
-function VideoModal({ open, onClose, src, title }) {
+function VideoModal({ open, onClose, project }) {
+  const { demo: src, title } = project;
   const dialogRef = useRef(null);
 
   useEffect(() => {
@@ -38,7 +39,9 @@ function VideoModal({ open, onClose, src, title }) {
             autoPlay
             playsInline
             preload="metadata"
-            className="mx-auto block h-auto max-h-[calc(92dvh-2.75rem)] w-auto max-w-full bg-black"
+            poster={project.demoPoster}
+            className="mx-auto block bg-black"
+            style={demoVideoBox(project, "calc(92dvh - 2.75rem)", "calc(92vw - 4px)")}
           >
             {/* H.264 .mov files play as MP4 in every major browser when typed this way. */}
             <source src={src} type="video/mp4" />
@@ -52,7 +55,7 @@ function VideoModal({ open, onClose, src, title }) {
 
 export default function DemoLink({ project, className, children = "Demo" }) {
   const [open, setOpen] = useState(false);
-  const { demo, title } = project;
+  const { demo } = project;
 
   if (!hasVideoDemo(project)) {
     return (
@@ -67,7 +70,7 @@ export default function DemoLink({ project, className, children = "Demo" }) {
       <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" className={className}>
         {children}
       </button>
-      <VideoModal open={open} onClose={() => setOpen(false)} src={demo} title={title} />
+      <VideoModal open={open} onClose={() => setOpen(false)} project={project} />
     </>
   );
 }

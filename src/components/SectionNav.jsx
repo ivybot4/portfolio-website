@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // Pinned bar for the homepage. Highlights the section in view and scrolls to a
-// section on click. The site uses a hash router, so plain "#id" links would
-// change the route; scrolling is done in JavaScript instead.
+// section on click. Scrolling is done in JavaScript rather than with "#id" links
+// so the URL stays clean when someone copies it to share.
 
 const BAR_OFFSET = 96; // px: a section counts as "current" once its top passes this line
 

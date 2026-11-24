@@ -12,6 +12,10 @@ const cards = [
     github: "https://github.com/ivybot4/on-device-hinglish-asr",
     // A video file path opens in a modal player; a URL opens in a new tab.
     demo: `${import.meta.env.BASE_URL}demo/demo-nemotron-finetune-v1.mov`,
+    // Video width / height, so the player is the right shape before the file loads.
+    demoAspect: 954 / 1502,
+    // Cover image shown on the player until it is played.
+    demoPoster: `${import.meta.env.BASE_URL}demo/demo-nemotron-finetune-v1-poster.jpg`,
     readmore: "",
   },
   {
@@ -112,3 +116,10 @@ export const hasDetailPage = (project) => Boolean(project.page);
 
 // A demo that points at a video file plays on the site; anything else is an external link.
 export const hasVideoDemo = (project) => /\.(mp4|mov|m4v|webm)([?#]|$)/i.test(project.demo ?? "");
+
+// Box style for a demo video that fits within `maxHeight` and `maxWidth`,
+// keeping the video's shape (16:9 when the project doesn't set demoAspect).
+export const demoVideoBox = (project, maxHeight, maxWidth = "100%") => {
+  const aspect = project.demoAspect ?? 16 / 9;
+  return { aspectRatio: aspect, width: `min(${maxWidth}, calc(${maxHeight} * ${aspect}))` };
+};

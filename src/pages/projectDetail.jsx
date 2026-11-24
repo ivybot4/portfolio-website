@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { projects, hasDetailPage, hasVideoDemo } from "../data/projects";
+import { projects, hasDetailPage, hasVideoDemo, demoVideoBox } from "../data/projects";
 import OnThisPage from "../components/OnThisPage";
 import DemoLink from "../components/DemoLink";
 
@@ -26,34 +26,50 @@ function Prose({ html }) {
   );
 }
 
-// Plays as soon as the page opens. Browsers allow sound only after the visitor has clicked
-// something on the site (e.g. the Details button); otherwise it falls back to muted autoplay.
+// Waits for the visitor: a big play button sits over the first frame. Since playback starts
+// from their click, it plays with sound. Native controls appear once it has started.
 function DemoVideo({ project }) {
   const videoRef = useRef(null);
+  const [started, setStarted] = useState(false);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = false;
-    video.play().catch(() => {
-      video.muted = true;
-      video.play().catch(() => {});
-    });
-  }, []);
+  const play = () => {
+    setStarted(true);
+    videoRef.current?.play().catch(() => {});
+  };
 
   return (
     <figure className="mb-8">
-      <video
-        ref={videoRef}
-        controls
-        playsInline
-        preload="auto"
-        aria-label={`${project.title} demo video`}
-        className="mx-auto block h-auto max-h-[70dvh] w-auto max-w-full border-[2px] border-black bg-black"
-      >
-        <source src={project.demo} type="video/mp4" />
-        Your browser can’t play this video. <a href={project.demo}>Download it instead.</a>
-      </video>
+      <div className="relative mx-auto border-[2px] border-black bg-black" style={demoVideoBox(project, "70dvh")}>
+        <video
+          ref={videoRef}
+          controls={started}
+          playsInline
+          preload="metadata"
+          poster={project.demoPoster}
+          aria-label={`${project.title} demo video`}
+          onEnded={() => setStarted(false)}
+          className="block h-full w-full"
+        >
+          {/* Without a poster, #t=0.1 makes browsers (incl. iOS Safari) show the first frame instead. */}
+          <source src={project.demoPoster ? project.demo : `${project.demo}#t=0.1`} type="video/mp4" />
+          Your browser can’t play this video. <a href={project.demo}>Download it instead.</a>
+        </video>
+
+        {!started && (
+          <button
+            type="button"
+            onClick={play}
+            aria-label="Play demo video"
+            className="group absolute inset-0 flex items-center justify-center bg-black/20 transition hover:bg-black/10"
+          >
+            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-[0_4px_24px_rgba(0,0,0,0.45)] transition-transform group-hover:scale-110 sm:h-24 sm:w-24">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-1.5 h-9 w-9 fill-black sm:h-11 sm:w-11">
+                <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
+              </svg>
+            </span>
+          </button>
+        )}
+      </div>
       <figcaption className="mt-2 text-center text-xs uppercase tracking-[0.12em] text-neutral-600">Demo</figcaption>
     </figure>
   );
