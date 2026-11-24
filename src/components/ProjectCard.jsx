@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { hasDetailPage } from "../data/projects";
+import DemoLink from "./DemoLink";
 
 const BUTTON =
   "whitespace-nowrap border border-black bg-white px-2 py-1 uppercase tracking-wide transition sm:px-3";
@@ -56,7 +57,11 @@ export default function ProjectCard({ project }) {
       <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[11px] sm:text-xs">
         <CardButton to={linked ? `/projects/${project.id}` : undefined}>Details</CardButton>
         <CardButton href={project.github}>GitHub</CardButton>
-        <CardButton href={project.demo}>Demo</CardButton>
+        {project.demo ? (
+          <DemoLink project={project} className={`${BUTTON} hover:bg-black hover:text-white`} />
+        ) : (
+          <CardButton>Demo</CardButton>
+        )}
         {project.readmore && <CardButton href={project.readmore}>Read More</CardButton>}
       </div>
     </div>

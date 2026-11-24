@@ -5,12 +5,13 @@ const files = import.meta.glob("../content/projects/*.md", { query: "?raw", impo
 const cards = [
   {
     id: "on-device-speech-to-text",
-    title: "On-Phone Accessbility: Bilingual Captions and Distress Sound Alerts",
+    title: "On-Phone Accessibility: Bilingual Captions and Distress Sound Alerts",
     tagline: "Fine-tuned and quantized Whisper model for Hinglish (Hindi + English) speech to text",
     categories: ["on-device", "inference", "audio", "python"],
     image: `${import.meta.env.BASE_URL}projects/audio-device.png`,
     github: "https://github.com/ivybot4/on-device-hinglish-asr",
-    demo: "",
+    // A video file path opens in a modal player; a URL opens in a new tab.
+    demo: `${import.meta.env.BASE_URL}demo/demo-nemotron-finetune-v1.mov`,
     readmore: "",
   },
   {
@@ -108,3 +109,6 @@ export const projectSubFilters = [
 
 // Only projects with a write-up get a detail page (and a Details button).
 export const hasDetailPage = (project) => Boolean(project.page);
+
+// A demo that points at a video file plays on the site; anything else is an external link.
+export const hasVideoDemo = (project) => /\.(mp4|mov|m4v|webm)([?#]|$)/i.test(project.demo ?? "");

@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { projects, hasDetailPage } from "../data/projects";
+import { projects, hasDetailPage, hasVideoDemo } from "../data/projects";
 import OnThisPage from "../components/OnThisPage";
+import DemoLink from "../components/DemoLink";
 
 const BUTTON =
   "inline-block border border-black bg-white px-3 py-1.5 text-[11px] uppercase tracking-wide transition hover:bg-black hover:text-white";
@@ -66,9 +67,9 @@ export default function ProjectDetail() {
 
   const links = [
     { label: "GitHub", href: project.github },
-    { label: "Demo", href: project.demo },
     { label: "Read More", href: project.readmore },
   ].filter((link) => link.href);
+  const hasLinks = links.length > 0 || Boolean(project.demo);
 
   // Contents sidebar whenever the write-up has headings.
   const hasContents = topics.length > 0;
@@ -86,8 +87,9 @@ export default function ProjectDetail() {
             <p className="mt-2 text-xs uppercase tracking-[0.12em] text-neutral-600">{stack.join(" · ")}</p>
           )}
 
-          {links.length > 0 && (
+          {hasLinks && (
             <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {project.demo && <DemoLink project={project} className={BUTTON} />}
               {links.map((link) => (
                 <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className={BUTTON}>
                   {link.label}
@@ -111,6 +113,25 @@ export default function ProjectDetail() {
           )}
 
           <div className="min-w-0">
+            {/* Demo video first, so it is the first thing seen; height-capped for portrait phone recordings */}
+            {hasVideoDemo(project) && (
+              <figure className="mb-8">
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={`${project.title} demo video`}
+                  className="mx-auto block h-auto max-h-[70dvh] w-auto max-w-full border-[2px] border-black bg-black"
+                >
+                  <source src={project.demo} type="video/mp4" />
+                  Your browser can’t play this video. <a href={project.demo}>Download it instead.</a>
+                </video>
+                <figcaption className="mt-2 text-center text-xs uppercase tracking-[0.12em] text-neutral-600">
+                  Demo
+                </figcaption>
+              </figure>
+            )}
+
             {/* Only when the .md file sets `image:` */}
             {image && (
               <div className="border-[2px] border-black bg-white">
