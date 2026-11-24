@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { projects, hasDetailPage, hasVideoDemo } from "../data/projects";
 import OnThisPage from "../components/OnThisPage";
@@ -22,6 +23,39 @@ function Prose({ html }) {
       className="prose-md mt-2 text-base leading-7 text-neutral-800 sm:text-[17px]"
       dangerouslySetInnerHTML={{ __html: html }}
     />
+  );
+}
+
+// Plays as soon as the page opens. Browsers allow sound only after the visitor has clicked
+// something on the site (e.g. the Details button); otherwise it falls back to muted autoplay.
+function DemoVideo({ project }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video.play().catch(() => {
+      video.muted = true;
+      video.play().catch(() => {});
+    });
+  }, []);
+
+  return (
+    <figure className="mb-8">
+      <video
+        ref={videoRef}
+        controls
+        playsInline
+        preload="auto"
+        aria-label={`${project.title} demo video`}
+        className="mx-auto block h-auto max-h-[70dvh] w-auto max-w-full border-[2px] border-black bg-black"
+      >
+        <source src={project.demo} type="video/mp4" />
+        Your browser can’t play this video. <a href={project.demo}>Download it instead.</a>
+      </video>
+      <figcaption className="mt-2 text-center text-xs uppercase tracking-[0.12em] text-neutral-600">Demo</figcaption>
+    </figure>
   );
 }
 
@@ -114,23 +148,7 @@ export default function ProjectDetail() {
 
           <div className="min-w-0">
             {/* Demo video first, so it is the first thing seen; height-capped for portrait phone recordings */}
-            {hasVideoDemo(project) && (
-              <figure className="mb-8">
-                <video
-                  controls
-                  playsInline
-                  preload="metadata"
-                  aria-label={`${project.title} demo video`}
-                  className="mx-auto block h-auto max-h-[70dvh] w-auto max-w-full border-[2px] border-black bg-black"
-                >
-                  <source src={project.demo} type="video/mp4" />
-                  Your browser can’t play this video. <a href={project.demo}>Download it instead.</a>
-                </video>
-                <figcaption className="mt-2 text-center text-xs uppercase tracking-[0.12em] text-neutral-600">
-                  Demo
-                </figcaption>
-              </figure>
-            )}
+            {hasVideoDemo(project) && <DemoVideo key={project.demo} project={project} />}
 
             {/* Only when the .md file sets `image:` */}
             {image && (
