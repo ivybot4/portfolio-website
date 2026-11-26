@@ -4,12 +4,12 @@ stack: Python, PyTorch, Whisper, Transformers, Fine-tuning, Quantization, Androi
 # Problem Statement
 
 1. During in-person conversations display code-switched text on phone with real-time streaming for bilingual accessibility. 
-2. An alert notification on phone about specific sounds like a glass breaking, a loud thud, or someone calling out your name or an alias you enter.
 
-# Decisions and features
+# 
 
-1. **Speech translation:** Hearing loss rates rise noticeably after ages 45–50 based on clinical studies.
+1. **Audio detection and transcription:** Hearing loss rates rise noticeably after ages 45–50 based on clinical studies. A lot of people in that age group are not used to wearing a hearing aid, and find it extremely uncomfortable.
 2. **Code-Switched:** The most natural way to read bilingual transcriptions are code-switched texts, especially for a language like Hindi with no standardized Roman representations.
+3. **On-device:** The primary demographic for this project lived in India, and most places in India do not have WiFi available at all times. A lot of underground tunnels or remote places sometimes don't have a stable data connection.
 
 # Steps
 

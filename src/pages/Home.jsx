@@ -74,7 +74,7 @@ export default function Home() {
               <ol className="mt-2 list-decimal space-y-1 pl-6">
                 <li>I was the first ML Engineer at Veritread, and built the entire freight price prediction pipeline from proof of concept to deployment. My models increased quarterly revenue by 20% and quote acceptance rate by 37%.</li>
                 <li>I then automated the entire bidding pipeline with an agent that would price items directly from CSV, group them together to ship, select freight for multiple pickup and dropoff and more.</li>
-                <li>I fine-tuned and quantized an audio model (Whisper) with code-switching on real-time audio.</li>
+                <li>I fine-tuned and quantized an audio model (NVIDIA Nemotron) with code-switching on real-time audio.</li>
               </ol>
             </div>
 

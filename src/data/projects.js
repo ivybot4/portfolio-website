@@ -36,9 +36,9 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },
+  },*/
 
-    {
+    /*{
     id: "world-model",
     title: "World Model",
     tagline: "World model from scratch",
@@ -47,9 +47,9 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },
+  },*/
 
-  {
+  /*{
     id: "aviation-vlm",
     title: "Aviation-VLM",
     tagline: "Fine-tuning a VLM to read FAA sectional charts",
@@ -68,8 +68,8 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },
-  {
+  },*/
+  /*{
     id: "adam-optimizer",
     title: "Adam Optimizer",
     tagline: "Different optimizers implemented from scratch",
@@ -78,9 +78,9 @@ const cards = [
     github: "",
     demo: "",
     readmore: "",
-  },
+  },*/
   
-  { something with LLM judge and AI Engineering}
+  /*{ something with LLM judge and AI Engineering}
   an interactive platform to learn dsa by building games
   like build minesweeper to learn bfs
   
